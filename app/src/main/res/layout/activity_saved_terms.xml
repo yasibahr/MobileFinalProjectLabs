@@ -6,4 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".views.SavedTermsActivity">
 
+    <!--This class will be where the user can see their saved terms.
+It will be the name of each term in a recycler view. Each time they save a
+term, it will be added here.-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/definitionsRecycler"
+        android:layout_width="391dp"
+        android:layout_height="286dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

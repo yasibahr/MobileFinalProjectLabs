@@ -13,8 +13,6 @@ import android.widget.EditText;
 
 import algonquin.cst2355.mobilefinalprojectlabs.R;
 
-//HOME
-//main search page
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";// A constant to use for logging purposes
