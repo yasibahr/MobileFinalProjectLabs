@@ -1,9 +1,3 @@
 <resources>
     <string name="app_name">MobileFinalProjectLabs</string>
-    <string name="dictionaryTitle">DICTIONARY</string>
-    <string name="searchInput">Enter a word</string>
-    <string name="searchButton">SEARCH</string>
-    <string name="viewSavedButton">VIEW SAVED</string>
-
-    <!--    **do french-->
 </resources>
