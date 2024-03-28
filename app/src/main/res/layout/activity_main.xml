@@ -6,21 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".views.MainActivity">
 
-    <TextView
-        android:id="@+id/dictionaryTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="138dp"
-        android:layout_marginTop="103dp"
-        android:layout_marginEnd="136dp"
-        android:layout_marginBottom="115dp"
-        android:text="@string/dictionaryTitle"
-        android:textAllCaps="true"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/searchInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/myToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#3F51B5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.005"
+        tools:layout_editor_absoluteX="-2dp" />
+<!--    android:text="@string/myToolbar"-->
+
 
     <EditText
         android:id="@+id/searchInput"
@@ -50,18 +46,18 @@
         app:layout_constraintStart_toEndOf="@+id/searchInput"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/viewSavedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="78dp"
-        android:layout_marginEnd="141dp"
-        android:layout_marginBottom="309dp"
-        android:text="@string/viewSavedButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchInput" />
+<!--    <Button-->
+<!--        android:id="@+id/viewSavedButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="140dp"-->
+<!--        android:layout_marginTop="78dp"-->
+<!--        android:layout_marginEnd="141dp"-->
+<!--        android:layout_marginBottom="309dp"-->
+<!--        android:text="@string/viewSavedButton"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/searchInput" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
