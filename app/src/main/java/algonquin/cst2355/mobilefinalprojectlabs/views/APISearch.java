@@ -10,7 +10,7 @@ import org.json.JSONArray;
 
 import com.android.volley.Response;
 
-public class APISearch {
+public class APISearch extends AppComp{
     private static final String API_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
     public static void getDefinitions(String term, Response.Listener<JSONArray> responseListener, Response.ErrorListener errorListener) {

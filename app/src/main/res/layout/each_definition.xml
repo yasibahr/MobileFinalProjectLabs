@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--each definition will be displayed in a list item within recyclerview.
+this layout is inflated by recyclerview adapater for each definition. some
+terms have different amount of definitions.-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+</androidx.constraintlayout.widget.ConstraintLayout>
