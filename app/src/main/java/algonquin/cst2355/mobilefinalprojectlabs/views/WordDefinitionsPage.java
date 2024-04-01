@@ -69,8 +69,8 @@ public class WordDefinitionsPage extends AppCompatActivity {
                         try {
                             //iterate through each result/definition in JSON array
                             for (int i = 0; i < response.length(); i++) {
-                                JSONObject entry = response.getJSONObject(i); //iterate through each json object
-                                JSONArray meanings = entry.getJSONArray("meanings"); //iterate through each json array
+                                JSONObject entry = response.getJSONObject(i); //iterate through each json object (whole word and definitions)
+                                JSONArray meanings = entry.getJSONArray("meanings"); //iterate through each json array (list of definitions)
 
                                 for (int j = 0; j < meanings.length(); j++) {
                                     JSONObject meaning = meanings.getJSONObject(j);

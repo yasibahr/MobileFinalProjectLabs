@@ -58,11 +58,7 @@ public class APIAdapter extends RecyclerView.Adapter<APIAdapter.ViewHolder>{
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             eachDefinitionTextView = itemView.findViewById(R.id.eachDefinitionTextView); //initialize TextView for definition
-
         }
-
-
-
     }
 
 }
