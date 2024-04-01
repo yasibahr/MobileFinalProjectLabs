@@ -22,7 +22,7 @@
 
     <!--definitions list of that term-->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleView"
+        android:id="@+id/definitionsListRecyclerView"
         android:layout_width="392dp"
         android:layout_height="662dp"
         android:layout_marginStart="184dp"

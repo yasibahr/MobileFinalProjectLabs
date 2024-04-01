@@ -19,7 +19,7 @@
 
 
     <EditText
-        android:id="@+id/searchInput"
+        android:id="@+id/searchedTermEditText"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:ems="10"
@@ -43,7 +43,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.882"
-        app:layout_constraintStart_toEndOf="@+id/searchInput"
+        app:layout_constraintStart_toEndOf="@+id/searchedTermEditText"
         app:layout_constraintTop_toTopOf="parent" />
 
 <!--    <Button-->
