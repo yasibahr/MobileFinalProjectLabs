@@ -9,10 +9,13 @@ terms have different amount of definitions.-->
 
     <TextView
         android:id="@+id/eachDefinitionTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:layout_width="391dp"
+        android:layout_height="338dp"
         android:padding="16dp"
-        tools:ignore="MissingConstraints" />
+        android:textSize="18sp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="274dp"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

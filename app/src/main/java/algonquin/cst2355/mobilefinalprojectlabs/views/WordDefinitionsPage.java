@@ -32,6 +32,7 @@ import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityWordDefiniti
 //page2
 public class WordDefinitionsPage extends AppCompatActivity {
     ActivityWordDefinitionsPageBinding binding;
+    String term=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class WordDefinitionsPage extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         /*get searched term and definitions passed from mainactivity (page1)*/
-        String term = getIntent().getStringExtra("SEARCH_TERM");
+        term = getIntent().getStringExtra("SEARCH_TERM");
         getDefinitions(term); //directly use term to get definitions
 
         /*set the term in the textview*/
@@ -55,7 +56,8 @@ public class WordDefinitionsPage extends AppCompatActivity {
      calls and processes responses. Sends request to API and handles the response. Fetches definitions or
      reports an error.*/
     private void getDefinitions(String term) {
-        if (!term.isEmpty()) { //check if user entered anything
+        term = getIntent().getStringExtra("SEARCH_TERM");
+        if (term!=null && !term.isEmpty()) { //check if user entered anything
             String url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + term; //go to api url
 
             //create json array request. when the request is successful, the json response is parsed
