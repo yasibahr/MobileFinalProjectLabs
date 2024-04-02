@@ -5,6 +5,8 @@
     <string name="searchButton">SEARCH</string>
     <string name="viewSavedButton">VIEW SAVED</string>
     <string name="myToolbar">DICTIONARY</string>
+    <string name="searched_term">Searched Term</string>
+    <string name="definition">definition</string>
 
 
     <!--    **do french-->

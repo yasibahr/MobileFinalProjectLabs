@@ -30,6 +30,20 @@ public class TermAndMeaningStorage {
     public String getPhonetic(){return phonetic;}
     public List<Meanings> getMeanings(){return meanings;}
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        //builder.append("Word: ").append(word).append("\n");
+        builder.append("Phonetic: ").append(phonetic).append("\n");
+        for (Meanings meaning : meanings) {
+            builder.append("\n").append("Part of Speech: ").append(meaning.partOfSpeech).append("\n");
+            for (String definition : meaning.definitionsList) {
+                builder.append(" - ").append(definition).append("\n");
+            }
+        }
+        return builder.toString();
+    }
+
     //nested Meanings class
     public static class Meanings {
         String partOfSpeech;
@@ -41,4 +55,5 @@ public class TermAndMeaningStorage {
             this.definitionsList = definitionsList;
         }
     }
+
 }

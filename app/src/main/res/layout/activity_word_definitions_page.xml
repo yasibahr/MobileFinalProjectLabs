@@ -1,44 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--the word they searched and the list of definitions of that word-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".views.WordDefinitionsPage">
 
-    <!--term user is searching for-->
-
-    <!--definitions list of that term-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/myToolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="4dp"
+        android:background="#3F51B5"
+        app:layout_constraintBottom_toTopOf="@+id/searchedTermTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/searchedTermTextView"
-        android:layout_width="188dp"
-        android:layout_height="71dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="110dp"
-        android:layout_marginTop="133dp"
-        android:layout_marginBottom="23dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:padding="16dp"
-        android:text="Searched Term"
+        android:text="@string/searched_term"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/definitionsListRecyclerView"
-        app:layout_constraintStart_toStartOf="@+id/definitionsListRecyclerView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myToolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/definitionsListRecyclerView"
-        android:layout_width="391dp"
-        android:layout_height="453dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchedTermTextView"
-        tools:ignore="MissingConstraints" />
-
+        app:layout_constraintTop_toBottomOf="@+id/searchedTermTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
