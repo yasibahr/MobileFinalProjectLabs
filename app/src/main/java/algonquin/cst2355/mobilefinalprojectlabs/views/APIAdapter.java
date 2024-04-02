@@ -9,14 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import algonquin.cst2355.mobilefinalprojectlabs.R;
 
 public class APIAdapter extends RecyclerView.Adapter<APIAdapter.ViewHolder>{
 
-    private ArrayList<String> definitionsList; //holds list of definitions that adapter will display
+    private List<TermAndMeaningStorage> definitionsList; //holds list of definitions that adapter will display
 
-    public APIAdapter(ArrayList<String> definitionsList){ //constructor for adapter. takes list of definitions as param
+    public APIAdapter(List<TermAndMeaningStorage> definitionsList){ //constructor for adapter. takes list of definitions as param
         this.definitionsList = definitionsList;
     }
 
@@ -36,7 +37,7 @@ public class APIAdapter extends RecyclerView.Adapter<APIAdapter.ViewHolder>{
     * from list of definitions) and bind it to the views defined in ViewHolder. */
     @Override
     public void onBindViewHolder(@NonNull APIAdapter.ViewHolder holder, int position) { //binds data to each item. sets the text of a TextView to corresponding definition
-        String singleDefinition = definitionsList.get(position); //get a definition string from API list
+        String singleDefinition = String.valueOf(definitionsList.get(position)); //get a definition string from API list
         holder.eachDefinitionTextView.setText(singleDefinition); //set text of TextView to definition
     }
 

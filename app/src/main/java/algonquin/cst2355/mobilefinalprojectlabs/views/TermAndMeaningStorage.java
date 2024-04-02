@@ -33,12 +33,12 @@ public class TermAndMeaningStorage {
     //nested Meanings class
     public static class Meanings {
         String partOfSpeech;
-        List<String> definitions;
+        List<String> definitionsList;
 
-        //Meanings constructor
-        public Meanings(String partOfSpeech, List<String> definitions) {
+        //Meanings constructor. Encapsulates relationship between partOfSpeech and corresponding definitions for a term
+        public Meanings(String partOfSpeech, List<String> definitionsList) {
             this.partOfSpeech = partOfSpeech;
-            this.definitions = definitions;
+            this.definitionsList = definitionsList;
         }
     }
 }
