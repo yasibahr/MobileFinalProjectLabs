@@ -1,36 +1,53 @@
-package algonquin.cst2355.mobilefinalprojectlabs.views;
+package algonquin.cst2355.mobilefinalprojectlabs;
 
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Executor;
-import algonquin.cst2355.mobilefinalprojectlabs.R;
-import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivitySavedTermsBinding;
+import android.app.AlertDialog;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Toast;
 
-//page3
-public class SavedTerms extends AppCompatActivity {
-    ActivitySavedTermsBinding binding;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
+import algonquin.cst2355.mobilefinalprojectlabs.R;
+import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityMainBinding;
+
+//page1
+public class MainActivity extends AppCompatActivity {
+    ActivityMainBinding binding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
-        binding = ActivitySavedTermsBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot()); //show SavedTerms xml
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot()); //show mainactivity xml
 
         setSupportActionBar(binding.myToolbar); //toolbar
 
+        //listener for the search button
+        binding.searchButton.setOnClickListener(view -> {
+            String userInput = binding.searchedTermEditText.getText().toString(); //get what user inputted and set to userInput
+            if(!userInput.isEmpty()) { //if userInput is not empty
+                Intent intent = new Intent(MainActivity.this, WordDefinitionsPage.class);
+                intent.putExtra("SEARCH_TERM", userInput);
 
-
-
+                startActivity(intent); //start WordDefinitionsPage
+            } else {
+                Toast.makeText(MainActivity.this, "Please enter a term to search", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -62,4 +79,5 @@ public class SavedTerms extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

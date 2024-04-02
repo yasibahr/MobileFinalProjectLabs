@@ -1,5 +1,6 @@
-package algonquin.cst2355.mobilefinalprojectlabs.views;
+package algonquin.cst2355.mobilefinalprojectlabs;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -23,15 +24,20 @@ definitions: definition: "j;lj;l"
 public class TermAndMeaningStorage {
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name="word")
+    @NonNull
     String word;
+
+    @ColumnInfo(name="phonetic")
     String phonetic;
+
+    @ColumnInfo(name="meanings")
     List<Meanings> meanings;
 
-    public TermAndMeaningStorage(){}
+//    public TermAndMeaningStorage(){}
 
-    public TermAndMeaningStorage(String word){
-        this.word=word;
-    }
+//    public TermAndMeaningStorage(String word){
+//        this.word=word;
+//    }
 
     public TermAndMeaningStorage(String word, String phonetic, List<Meanings> meanings){
         this.word = word;

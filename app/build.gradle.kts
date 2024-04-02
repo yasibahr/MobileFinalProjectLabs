@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
 }
 
+
 android {
     namespace = "algonquin.cst2355.mobilefinalprojectlabs"
     compileSdk = 34
@@ -19,6 +20,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -41,7 +43,10 @@ dependencies {
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
+
     implementation("com.android.volley:volley:1.2.1")
+
+    implementation("com.google.code.gson:gson:2.8.6")
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")

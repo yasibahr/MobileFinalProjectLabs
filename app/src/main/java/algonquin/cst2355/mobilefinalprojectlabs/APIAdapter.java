@@ -1,4 +1,4 @@
-package algonquin.cst2355.mobilefinalprojectlabs.views;
+package algonquin.cst2355.mobilefinalprojectlabs;
 
 import android.view.LayoutInflater;
 import android.view.View;

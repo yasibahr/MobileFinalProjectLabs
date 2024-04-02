@@ -1,4 +1,4 @@
-package algonquin.cst2355.mobilefinalprojectlabs.views;
+package algonquin.cst2355.mobilefinalprojectlabs;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -8,10 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-//import androidx.annotation.NonNull;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.room.Room;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -26,7 +26,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import algonquin.cst2355.mobilefinalprojectlabs.R;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityWordDefinitionsPageBinding;
 
@@ -34,6 +35,7 @@ import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityWordDefiniti
 public class WordDefinitionsPage extends AppCompatActivity {
     ActivityWordDefinitionsPageBinding binding;
     String term=null;
+    DictionaryDAO dDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +83,22 @@ public class WordDefinitionsPage extends AppCompatActivity {
                                 JSONArray meaningsArray = termInformation.getJSONArray("meanings"); //get meanings array and all thats in it (meanings: partOfSpeech: noun. definitions: definition: "abcd")
 
                                 List<TermAndMeaningStorage.Meanings> allMeaningsList = new ArrayList<>(); //list for ALL meanings
-                                TermAndMeaningStorage termAndMeaningStorage = termAndMeaningStorageMap.getOrDefault(word, new TermAndMeaningStorage(word, phonetic, new ArrayList<>()));
+                                TermAndMeaningStorage termAndMeaningStorage = termAndMeaningStorageMap.getOrDefault(word, new TermAndMeaningStorage(word, phonetic, allMeaningsList));
+
+
+                                //create DB obj
+                                DictionaryDatabase db = Room.databaseBuilder(getApplicationContext(), DictionaryDatabase.class, "DictionaryDatabase").build();
+                                dDAO = db.dictionaryDAO(); //get DAO obj to interact with the DB
+
+                                //load term from DB
+                                Executor thread = Executors.newSingleThreadExecutor();
+                                thread.execute( () -> {
+                                    dDAO.insertTerm(termAndMeaningStorage); //return the term
+                                    Log.d("TAG", "The following term has been inserted into the database: " + word);
+
+                                });
+
+
 
                             /*for each "meanings" array
                             4. Iterate over meanings array. Get partOfSpeech, noun/adjective/verb, and definitions array.*/

@@ -1,4 +1,4 @@
-package algonquin.cst2355.mobilefinalprojectlabs.views;
+package algonquin.cst2355.mobilefinalprojectlabs;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
