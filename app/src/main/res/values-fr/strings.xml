@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DICTIONAIRE</string>
+    <string name="searchInput">Entrez un mot</string>
+    <string name="searchButton">RECHERCHE</string>
+    <string name="viewSavedButton">VOIR LES SAUVEGARDERS</string>
+    <string name="myToolbar">DICTIONAIRE</string>
+    <string name="searched_term">Mot Recherché</string>
+    <string name="definition">définition</string>
+    <string name="helpMenu">Menu d\'aide</string>
+    <string name="helpMenuMessage">Entrez un mot à rechercher et cliquez sur Rechercher. Vous pouvez ensuite sauvegarder le terme et le supprimer de vos sauvegardes.</string>
+    <string name="positiveButton">D\'accord</string>
+    <string name="home">Accueil</string>
+    <string name="saved">Voir les sauvegarders</string>
+    <string name="about">À propos</string>
+</resources>

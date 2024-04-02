@@ -1,5 +1,10 @@
 package algonquin.cst2355.mobilefinalprojectlabs.views;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.ProvidedAutoMigrationSpec;
+
 import java.util.List;
 
 /*
@@ -14,10 +19,19 @@ definitions: definition: "j;lj;l"
 */
 
 /*This class holds these items in variables*/
+@Entity
 public class TermAndMeaningStorage {
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name="word")
     String word;
     String phonetic;
     List<Meanings> meanings;
+
+    public TermAndMeaningStorage(){}
+
+    public TermAndMeaningStorage(String word){
+        this.word=word;
+    }
 
     public TermAndMeaningStorage(String word, String phonetic, List<Meanings> meanings){
         this.word = word;

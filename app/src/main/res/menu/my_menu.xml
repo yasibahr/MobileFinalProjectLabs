@@ -5,17 +5,17 @@
     <item
         android:id="@+id/home"
         android:icon="@drawable/home"
-        android:title="Home"
+        android:title="@string/home"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/saved"
         android:icon="@drawable/saved"
-        android:title="View saved terms"
+        android:title="@string/saved"
         app:showAsAction="always" />
     <item
         android:id="@+id/about"
-        android:title="About"
+        android:title="@string/about"
         app:showAsAction="never" />
 
 </menu>

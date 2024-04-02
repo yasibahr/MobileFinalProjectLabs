@@ -1,11 +1,15 @@
 package algonquin.cst2355.mobilefinalprojectlabs.views;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 //import androidx.annotation.NonNull;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -160,5 +164,28 @@ public class WordDefinitionsPage extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.my_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        if(id==R.id.about) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.helpMenu))
+                    .setMessage(getString(R.string.helpMenuMessage))
+                    .setPositiveButton(getString(R.string.positiveButton),null) //to close alertdialog
+                    .show();
+            return true; //menu item handled
+        } else if(id==R.id.home){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            return true; //menu item handled
+        } else if(id==R.id.saved){
+            Intent intent = new Intent(this, SavedTerms.class);
+            startActivity(intent);
+            return true; //menu item handled
+        }
+        return super.onOptionsItemSelected(item);
     }
 } //close WordDefinitionsPage class

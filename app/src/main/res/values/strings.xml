@@ -7,7 +7,10 @@
     <string name="myToolbar">DICTIONARY</string>
     <string name="searched_term">Searched Term</string>
     <string name="definition">definition</string>
-
-
-    <!--    **do french-->
+    <string name="helpMenu">Help Menu</string>
+    <string name="helpMenuMessage">Enter a word to search and click search. Then you can save the term and delete it from your saves.</string>
+    <string name="positiveButton">OK</string>
+    <string name="home">Home</string>
+    <string name="saved">View Saved</string>
+    <string name="about">About</string>
 </resources>
