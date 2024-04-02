@@ -4,18 +4,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import algonquin.cst2355.mobilefinalprojectlabs.R;
 
 public class APIAdapter extends RecyclerView.Adapter<APIAdapter.ViewHolder>{
 
-    private List<TermAndMeaningStorage> definitionsList; //holds list of definitions that adapter will display
+    private final List<TermAndMeaningStorage> definitionsList; //holds list of definitions that adapter will display
 
     public APIAdapter(List<TermAndMeaningStorage> definitionsList){ //constructor for adapter. takes list of definitions as param
         this.definitionsList = definitionsList;
@@ -53,7 +50,7 @@ public class APIAdapter extends RecyclerView.Adapter<APIAdapter.ViewHolder>{
     * It holds references to any view that will be set or updated based on the data for an item.
     * By storing these references, the RecyclerView can update the view without needing to
     * find the view each time by calling findViewById. */
-    public class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder class represents a single list item view within the RecyclerView
+    public static class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder class represents a single list item view within the RecyclerView
         TextView eachDefinitionTextView; //TextView for displaying a single definition. each single definition added to recyclerview
 
         public ViewHolder(@NonNull View itemView){

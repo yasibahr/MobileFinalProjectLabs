@@ -37,7 +37,7 @@ public class WordDefinitionsPage extends AppCompatActivity {
 
         /*get searched term and definitions passed from mainactivity (page1)*/
         term = getIntent().getStringExtra("SEARCH_TERM");
-        getDefinitions(term); //directly use term to get definitions
+        getDefinitions(); //directly use term to get definitions
 
         /*set the term in the textview*/
         binding.searchedTermTextView.setText(term);
@@ -48,11 +48,11 @@ public class WordDefinitionsPage extends AppCompatActivity {
      is the volley request. It handles network requests to fetch data from dictionary api. Makes network
      calls and processes responses. Sends request to API and handles the response. Fetches definitions or
      reports an error.*/
-    private void getDefinitions(String term) {
-        term = getIntent().getStringExtra("SEARCH_TERM");
+    private void getDefinitions() {
+        String term = getIntent().getStringExtra("SEARCH_TERM");
         final String finalTerm = term;
 
-        if (term!=null && !term.isEmpty()) { //check if user entered anything
+        if (term !=null && !term.isEmpty()) { //check if user entered anything
             String url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + term; //go to api url (make network request)
 
             /*Volley Request*/
