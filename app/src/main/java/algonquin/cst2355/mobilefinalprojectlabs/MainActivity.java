@@ -2,19 +2,12 @@ package algonquin.cst2355.mobilefinalprojectlabs;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 import android.app.AlertDialog;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
-
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
-import algonquin.cst2355.mobilefinalprojectlabs.R;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityMainBinding;
 
 //page1
@@ -43,11 +36,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
