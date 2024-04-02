@@ -15,10 +15,10 @@
         android:theme="@style/Theme.MobileFinalProjectLabs"
         tools:targetApi="31">
         <activity
-            android:name=".views.SavedTerms"
+            android:name=".SavedTerms"
             android:exported="false" />
         <activity
-            android:name=".views.WordDefinitionsPage"
+            android:name=".WordDefinitionsPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

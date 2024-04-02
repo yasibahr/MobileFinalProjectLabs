@@ -2,6 +2,7 @@ package algonquin.cst2355.mobilefinalprojectlabs;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -84,19 +85,24 @@ public class WordDefinitionsPage extends AppCompatActivity {
                                 List<TermAndMeaningStorage.Meanings> allMeaningsList = new ArrayList<>(); //list for ALL meanings
                                 TermAndMeaningStorage termAndMeaningStorage = termAndMeaningStorageMap.getOrDefault(word, new TermAndMeaningStorage(word, phonetic, allMeaningsList));
 
-
-                                //create DB obj
-                                DictionaryDatabase db = Room.databaseBuilder(getApplicationContext(), DictionaryDatabase.class, "DictionaryDatabase").build();
-                                dDAO = db.dictionaryDAO(); //get DAO obj to interact with the DB
-
                                 //load term from DB
                                 Executor thread = Executors.newSingleThreadExecutor();
                                 thread.execute( () -> {
-                                    dDAO.insertTerm(termAndMeaningStorage); //return the term
-                                    Log.d("TAG", "The following term has been inserted into the database: " + word);
 
+                                    //create DB obj (used singleton in Database class)
+                                    DictionaryDatabase db = DictionaryDatabase.getDatabase(getApplicationContext());
+                                    dDAO = db.dictionaryDAO(); //get DAO obj to interact with the DB
+
+                                    //try to insert term and check result
+                                    long rowId = dDAO.insertTerm(termAndMeaningStorage);
+
+                                    if (rowId == -1L) { //check if the insertion failed due to a conflict. Room returns -1 if conflict with primary keys (term already in DB)
+                                        dDAO.updateTerm(termAndMeaningStorage); //update term if row id is -1 (insert failed)
+                                        Log.d("TAG", "Term already exists, updated in the database: " + word);
+                                    } else {
+                                        Log.d("TAG", "New term inserted into the database: " + word);
+                                    }
                                 });
-
 
 
                             /*for each "meanings" array
