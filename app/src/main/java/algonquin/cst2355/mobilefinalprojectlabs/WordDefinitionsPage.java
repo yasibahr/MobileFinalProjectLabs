@@ -3,6 +3,7 @@ package algonquin.cst2355.mobilefinalprojectlabs;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.room.Room;
 
@@ -32,11 +34,24 @@ import java.util.concurrent.Executors;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityWordDefinitionsPageBinding;
 
 //page2
+
+/**
+ * When user searches for a term, they are redirected to this page which will show them the term,
+ * phonetic, and definitions. They can also save the term.
+ */
 public class WordDefinitionsPage extends AppCompatActivity {
     ActivityWordDefinitionsPageBinding binding;
     String term=null;
     DictionaryDAO dDAO;
+    TermAndMeaningStorage termAndMeaningStorage = null;
 
+    /**
+     * Method that is called when the app first starts.
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,14 +68,52 @@ public class WordDefinitionsPage extends AppCompatActivity {
 
         /*set the term in the textview*/
         binding.searchedTermTextView.setText(term);
+
+        //heart button
+        binding.heart.setOnClickListener(view -> saveTermToDatabase());
+    } //close onCreate
+
+    /**
+     * Used to save a term to the database.
+     */
+    private void saveTermToDatabase() {
+        Executor thread = Executors.newSingleThreadExecutor();
+        thread.execute(() -> {
+            //getDefinitions in onCreate will return termAndMeaningStorage variable and we can use it here
+            if (termAndMeaningStorage != null) { //if there is a term with info
+                DictionaryDatabase db = DictionaryDatabase.getDatabase(getApplicationContext());
+                dDAO = db.dictionaryDAO();
+
+                long rowId = dDAO.insertTerm(termAndMeaningStorage);
+                if (rowId == -1L) { //check if the insertion failed due to a conflict. Room returns -1 if conflict with primary keys (term already in DB)
+                    dDAO.updateTerm(termAndMeaningStorage); //update term if row id is -1 (insert failed)
+                    Log.d("TAG", "Term already exists, updated in the database: " + termAndMeaningStorage.getWord());
+                    showToast("You've already saved this word");
+                } else {
+                    Log.d("TAG", "New term inserted into the database: " + termAndMeaningStorage.getWord());
+                    showToast("Word has been saved");
+                }
+            }
+        });
     }
 
-    /*Method that uses Volley to fetch definitions from API. Have to parse API
-     response and update RecyclerView adapter with the fetched definitions. This method basically
-     is the volley request. It handles network requests to fetch data from dictionary api. Makes network
-     calls and processes responses. Sends request to API and handles the response. Fetches definitions or
-     reports an error.*/
-    private void getDefinitions() {
+    /**
+     * Take toast out of background thread and make its own method. Shows a toast message.
+     * @param message Toast message of type String
+     */
+    private void showToast(final String message){
+        runOnUiThread(() -> Toast.makeText(WordDefinitionsPage.this, message, Toast.LENGTH_SHORT).show());
+    }
+
+    /**
+     * Method that uses Volley to fetch definitions from API. Have to parse API
+     * response and update RecyclerView adapter with the fetched definitions. This method basically
+     * is the volley request. It handles network requests to fetch data from dictionary api. Makes network
+     * calls and processes responses. Sends request to API and handles the response. Fetches definitions or
+     * reports an error.
+     * @return object of type TermAndMeaningStorage
+     */
+    private TermAndMeaningStorage getDefinitions() {
         String searchTerm = getIntent().getStringExtra("SEARCH_TERM");
 
         if (searchTerm !=null && !searchTerm.isEmpty()) { //check if user entered anything
@@ -82,31 +135,14 @@ public class WordDefinitionsPage extends AppCompatActivity {
                                 String phonetic = termInformation.optString("phonetic", ""); //get phonetic
                                 JSONArray meaningsArray = termInformation.getJSONArray("meanings"); //get meanings array and all thats in it (meanings: partOfSpeech: noun. definitions: definition: "abcd")
 
+                                binding.phonetic.setText(phonetic); //set phonetic
+
                                 List<TermAndMeaningStorage.Meanings> allMeaningsList = new ArrayList<>(); //list for ALL meanings
-                                TermAndMeaningStorage termAndMeaningStorage = termAndMeaningStorageMap.getOrDefault(word, new TermAndMeaningStorage(word, phonetic, allMeaningsList));
-
-                                //load term from DB
-                                Executor thread = Executors.newSingleThreadExecutor();
-                                thread.execute( () -> {
-
-                                    //create DB obj (used singleton in Database class)
-                                    DictionaryDatabase db = DictionaryDatabase.getDatabase(getApplicationContext());
-                                    dDAO = db.dictionaryDAO(); //get DAO obj to interact with the DB
-
-                                    //try to insert term and check result
-                                    long rowId = dDAO.insertTerm(termAndMeaningStorage);
-
-                                    if (rowId == -1L) { //check if the insertion failed due to a conflict. Room returns -1 if conflict with primary keys (term already in DB)
-                                        dDAO.updateTerm(termAndMeaningStorage); //update term if row id is -1 (insert failed)
-                                        Log.d("TAG", "Term already exists, updated in the database: " + word);
-                                    } else {
-                                        Log.d("TAG", "New term inserted into the database: " + word);
-                                    }
-                                });
+                                termAndMeaningStorage = termAndMeaningStorageMap.getOrDefault(word, new TermAndMeaningStorage(word, phonetic, allMeaningsList));
 
 
-                            /*for each "meanings" array
-                            4. Iterate over meanings array. Get partOfSpeech, noun/adjective/verb, and definitions array.*/
+                                /*for each "meanings" array
+                                4. Iterate over meanings array. Get partOfSpeech, noun/adjective/verb, and definitions array.*/
                                 for (int i = 0; i < meaningsArray.length(); i++) {
                                     JSONObject partOfMeanings = meaningsArray.getJSONObject(i); //in "meanings" get first array part (part of speech: definitions)
                                     String partOfSpeech = partOfMeanings.getString("partOfSpeech"); //5. get partOfSpeech
@@ -153,25 +189,16 @@ public class WordDefinitionsPage extends AppCompatActivity {
         else {
             Toast.makeText(WordDefinitionsPage.this, "Please enter a word to search", Toast.LENGTH_SHORT).show();
         } //close else
+        return termAndMeaningStorage;
     } //close getDefinitions method
 
-//    /*Extracted method from:
-//    1. Create TermAndMeaningStorage object and pass term, phonetic and meaningsList to it. MeaningsList includes partOfSpeech and list of definitions.
-//    2. Create list to store TermAndMeaningStorage objects
-//    3. Add created TermAndMeaningStorage object to the TermAndMeaningStorageList list. The list has all info and is ready to be used
-//        TermAndMeaningStorage termAndMeaningStorage = new TermAndMeaningStorage(term, phonetic, meaningsList);
-//        List<TermAndMeaningStorage> termAndMeaningStorageList = new ArrayList<>();
-//        termAndMeaningStorageList.add(termAndMeaningStorage);
-//    */
-//    @NonNull
-//    private static List<TermAndMeaningStorage> getTermAndMeaningStorages(String finalTerm, String phonetic, List<TermAndMeaningStorage.Meanings> meaningsList) {
-//        TermAndMeaningStorage termAndMeaningStorage = new TermAndMeaningStorage(finalTerm, phonetic, meaningsList); //Create TermAndMeaningStorage object and pass term, phonetic and meaningsList to it. MeaningsList includes partOfSpeech and list of definitions.
-//        List<TermAndMeaningStorage> termAndMeaningStorageList = new ArrayList<>(); //create list to store TermAndMeaningStorage objects
-//        termAndMeaningStorageList.add(termAndMeaningStorage); //add created TermAndMeaningStorage object to the TermAndMeaningStorageList list. The list has all info and is ready to be used
-//        return termAndMeaningStorageList;
-//    }
 
-    /*Set adapter to RecyclerView and specifying LayoutManager in activity where RecyclerView is used*/
+
+
+    /**
+     * Set adapter to RecyclerView and specifying LayoutManager in activity where RecyclerView is used
+     * @param definitionsList List of type TermAndMeaningStorage
+     */
     private void updateRecyclerView(List<TermAndMeaningStorage> definitionsList){
         APIAdapter adapter = new APIAdapter(definitionsList); //create new adapter with data
         binding.definitionsListRecyclerView.setLayoutManager(new LinearLayoutManager(this)); //set layout manager that positions items
@@ -179,6 +206,11 @@ public class WordDefinitionsPage extends AppCompatActivity {
 
     } //close updateRecyclerView
 
+    /**
+     * Shows menu toolbar and its options at the top of the page.
+     * @param menu The options menu in which you place your items.
+     * @return true to say it has been handled or false otherwise
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //super.onCreateOptionsMenu(menu);
@@ -188,6 +220,12 @@ public class WordDefinitionsPage extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Lets user click on menu options and redirects them to the corresponding page (home, saved page,
+     * or shows about message)
+     * @param item The menu item that was selected.
+     * @return true if item has been handled and false otherwise
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         super.onOptionsItemSelected(item);

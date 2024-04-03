@@ -54,12 +54,13 @@ public class TermAndMeaningStorage {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         //builder.append("Word: ").append(word).append("\n");
-        builder.append("Phonetic: ").append(phonetic).append("\n");
+//        builder.append("Phonetic: ").append(phonetic).append("\n");
         for (Meanings meaning : meanings) {
-            builder.append("\n").append("Part of Speech: ").append(meaning.partOfSpeech).append("\n");
+            builder.append("Part of Speech: ").append(meaning.partOfSpeech).append("\n");
             for (String definition : meaning.definitionsList) {
                 builder.append(" - ").append(definition).append("\n");
             }
+            builder.append("\n");
         }
         return builder.toString();
     }
