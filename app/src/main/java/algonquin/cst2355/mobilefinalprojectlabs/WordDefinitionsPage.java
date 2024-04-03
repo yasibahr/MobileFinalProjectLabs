@@ -40,6 +40,9 @@ import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityWordDefiniti
 /**
  * Page 2 in the application. When user searches for a term, they are redirected to this page which
  * will show them the term, phonetic, and definitions. They can also save the term.
+ * @author Yasaman Bahramifarid
+ * @section CST2355 012
+ * @creationDate 30/03/2024
  */
 public class WordDefinitionsPage extends AppCompatActivity {
     ActivityWordDefinitionsPageBinding binding;
@@ -47,7 +50,6 @@ public class WordDefinitionsPage extends AppCompatActivity {
     DictionaryDAO dDAO;
     TermAndMeaningStorage termAndMeaningStorage = null;
     DictionaryViewModel dictionaryViewModel;
-//    List<TermAndMeaningStorage> termList = new ArrayList<>();
 
     /**
      * Method that is called when the app first starts.
@@ -63,30 +65,20 @@ public class WordDefinitionsPage extends AppCompatActivity {
 
         setSupportActionBar(binding.myToolbar); //toolbar
 
-
         //if rotate
         dictionaryViewModel = new ViewModelProvider(this).get(DictionaryViewModel.class); //get data from view model
-        // Observe the LiveData from the ViewModel
+        //observe the LiveData from the ViewModel
         dictionaryViewModel.getAllTerms().observe(this, new Observer<List<TermAndMeaningStorage>>() {
+
+            /**
+             * Updating terms, of type list of TermAndMeaningStorage objects.
+             * @param terms list of term of type TermAndMeaningStorage
+             */
             @Override
             public void onChanged(List<TermAndMeaningStorage> terms) {
-                // Here, 'terms' contains the latest data. Use it as needed.
-                // For example, if you want to log the size:
                 Log.d("WordDefinitionsPage", "Number of terms: " + terms.size());
-                // If you have a RecyclerView that needs to display these terms, update it here.
             }
         });
-
-
-
-//        termList = dictionaryViewModel.getAllTerms().getValue(); //array list that has all terms, comes from view model
-//
-//        //if termList array list doesnt exist yet, make one
-//        if(termList==null){
-//            dictionaryViewModel.getAllTerms().getValue();
-//            termList = new ArrayList<>();
-//        }
-
 
         /*get searched term and definitions passed from mainactivity (page1)*/
         term = getIntent().getStringExtra("SEARCH_TERM");
@@ -114,7 +106,7 @@ public class WordDefinitionsPage extends AppCompatActivity {
                 runOnUiThread(() -> {
                     dDAO.getAllTerms().observe(this, fromDatabase -> {
 //                        termList.addAll(fromDatabase);
-                        if (rowId == -1L) { // Primary key conflict handling
+                        if (rowId == -1L) { //-1 if trying to insert when item already exists (primary key conflict)
                             showToast("You've already saved this word");
                         } else {
                             showToast("Word has been saved");
@@ -206,7 +198,7 @@ public class WordDefinitionsPage extends AppCompatActivity {
                         } //close catch
                     }, //close volley request/response
                     error -> {
-                        // This is called when the request fails
+                        //called when the request fails
                         Toast.makeText(WordDefinitionsPage.this, "Error fetching definitions: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     });
 

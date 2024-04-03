@@ -7,12 +7,22 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+/**
+ * Database of application. Uses Singleton method.
+ * @author Yasaman Bahramifarid
+ * @section CST2355 012
+ * @creationDate 01/04/2024
+ */
 @Database(entities = {TermAndMeaningStorage.class},version=1, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class DictionaryDatabase extends RoomDatabase {
     private static volatile DictionaryDatabase INSTANCE;
 
-    //make one instance for the database. singleton pattern
+    /**
+     * Makes an instance for the database using singleton pattern.
+     * @param context
+     * @return
+     */
     public static DictionaryDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (DictionaryDatabase.class) {
@@ -26,5 +36,9 @@ public abstract class DictionaryDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    public abstract DictionaryDAO dictionaryDAO(); //method to get instance of DAO interface
+    /**
+     * Get instance of DAO interface
+     * @return DictionaryDAO object
+     */
+    public abstract DictionaryDAO dictionaryDAO();
 }

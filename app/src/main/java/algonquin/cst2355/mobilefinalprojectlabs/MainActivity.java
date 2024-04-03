@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
@@ -18,6 +19,9 @@ import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityMainBinding;
 
 /**
  * Page 1 in the application. User can input a word to search for.
+ * @author Yasaman Bahramifarid
+ * @section CST2355 012
+ * @creationDate 30/03/2024
  */
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -41,10 +45,13 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.myToolbar); //toolbar
 
+        restoreLastSearchTerm(); //save what they last search next time they open the app
+
         //listener for the search button
         binding.searchButton.setOnClickListener(view -> {
             String userInput = binding.searchedTermEditText.getText().toString(); //get what user inputted and set to userInput
             if(!userInput.isEmpty()) { //if userInput is not empty
+                saveLastSearchTerm(userInput); //save what they entered for next time
                 Intent intent = new Intent(MainActivity.this, WordDefinitionsPage.class);
                 intent.putExtra("SEARCH_TERM", userInput);
 
@@ -62,9 +69,6 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //super.onCreateOptionsMenu(menu);
-        //inflate the menu. adds items to action bar
-
         getMenuInflater().inflate(R.menu.my_menu, menu);
         return true;
     }
@@ -98,6 +102,23 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Used for sharedPreferences. Save the last word the user inputted.
+     * @param searchTerm The term the user inputted
+     */
+    private void saveLastSearchTerm(String searchTerm) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("lastSearchTerm", searchTerm);
+        editor.commit(); //commit changes
+    }
 
-
+    /**
+     * Used for sharedPreferences. Restores the last word the user inputted before closing the app.
+     */
+    private void restoreLastSearchTerm() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String lastSearchTerm = sharedPreferences.getString("lastSearchTerm", ""); //default to empty string
+        binding.searchedTermEditText.setText(lastSearchTerm);
+    }
 }

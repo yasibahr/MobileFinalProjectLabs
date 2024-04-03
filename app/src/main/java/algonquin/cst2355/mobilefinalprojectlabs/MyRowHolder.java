@@ -17,13 +17,13 @@
 //import algonquin.cst2355.mobilefinalprojectlabs.data.DictionaryViewModel;
 //
 //public class MyRowHolder extends RecyclerView.ViewHolder{
-//    TextView messageText; // Assuming you have a TextView to display the term
+//    TextView messageText;
 //
 //    public MyRowHolder(@NonNull View itemView, TermsAdapter.OnTermDeleteListener listener, List<TermAndMeaningStorage> terms) {
 //        super(itemView);
 //        messageText = itemView.findViewById(R.id.eachTermTextView);
 //
-//        // Set the click listener for the entire row
+//        //set the click listener for the entire row
 //        itemView.setOnClickListener(view -> {
 //            int position = getAbsoluteAdapterPosition();
 //            if (position != RecyclerView.NO_POSITION) {

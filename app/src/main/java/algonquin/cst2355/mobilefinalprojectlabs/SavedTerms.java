@@ -19,12 +19,23 @@ import java.util.List;
 import algonquin.cst2355.mobilefinalprojectlabs.data.DictionaryViewModel;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivitySavedTermsBinding;
 
-//page3
+/**
+ * Page 3 in the application. User can see the terms they saved on page 2.
+ * @author Yasaman Bahramifarid
+ * @section CST2355 012
+ * @creationDate 31/03/2024
+ */
 public class SavedTerms extends AppCompatActivity {
     ActivitySavedTermsBinding binding;
     DictionaryViewModel dictionaryViewModel;
     TermAndMeaningStorage termAndMeaningStorage;
 
+    /**
+     * Method that is called when the app first starts.
+     * @param savedInstanceState If the activity is being re-initialized after
+     * previously being shut down then this Bundle contains the data it most
+     * recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,9 +70,6 @@ public class SavedTerms extends AppCompatActivity {
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //super.onCreateOptionsMenu(menu);
-        //inflate the menu. adds items to action bar
-
         getMenuInflater().inflate(R.menu.my_menu, menu);
         return true;
     }
