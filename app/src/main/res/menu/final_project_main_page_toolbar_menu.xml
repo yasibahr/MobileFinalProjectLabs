@@ -4,31 +4,31 @@
 
     <item
         android:id="@+id/home"
-        android:icon="@drawable/mainHome"
+        android:icon="@drawable/mainhome"
         android:title="@string/home"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/dictionarySearch"
-        android:icon="@drawable/mainDictionary"
+        android:icon="@drawable/maindictionary"
         android:title="@string/dictionarySearch"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/sunriseSunsetSearch"
-        android:icon="@drawable/mainSun"
+        android:icon="@drawable/mainsun"
         android:title="@string/sunriseSunsetSearch"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/recipeSearch"
-        android:icon="@drawable/mainRecipe"
+        android:icon="@drawable/mainrecipe"
         android:title="@string/recipeSearch"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/songSearch"
-        android:icon="@drawable/mainSong"
+        android:icon="@drawable/mainsong"
         android:title="@string/songSearch"
         app:showAsAction="always" />
 
