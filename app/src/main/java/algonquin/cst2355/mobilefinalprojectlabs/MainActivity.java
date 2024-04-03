@@ -1,6 +1,8 @@
 package algonquin.cst2355.mobilefinalprojectlabs;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -22,10 +24,14 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Artist> artistList = new ArrayList<Artist>();
     String apiLink = "https://api.deezer.com/search/artist/?q=XXX";
+
+    RecyclerView recyclerView = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        recyclerView = findViewById(R.id.recyclerView);
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         // Define response listener
@@ -52,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
                         artistList.add(newArtist);
 
                     }
+
+                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                    recyclerView.setAdapter(new ArtistAdapter(artistList));
                     //Log.d("Volley Sample", artistList.toString());
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -63,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         Response.ErrorListener errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Volley Sample", "Error: " + error.getMessage());
+                Log.e("Volley Sample Fail", "Error: " + error.getMessage());
             }
         };
 
