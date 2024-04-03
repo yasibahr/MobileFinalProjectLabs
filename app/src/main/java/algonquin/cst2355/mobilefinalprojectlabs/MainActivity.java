@@ -10,10 +10,18 @@ import android.os.Bundle;
 import android.widget.Toast;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityMainBinding;
 
-//page1
+/**
+ * Page 1 in the application. User can input a word to search for.
+ */
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
 
+    /**
+     * Method that is called when the app first starts.
+     * @param savedInstanceState If the activity is being re-initialized after
+     * previously being shut down then this Bundle contains the data it most
+     * recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,14 +45,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Shows menu toolbar and its options at the top of the page.
+     * @param menu The options menu in which you place your items.
+     * @return true to say it has been handled or false otherwise
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
+        //super.onCreateOptionsMenu(menu);
         //inflate the menu. adds items to action bar
+
         getMenuInflater().inflate(R.menu.my_menu, menu);
         return true;
     }
 
+    /**
+     * Lets user click on menu options and redirects them to the corresponding page (home, saved page,
+     * or shows about message)
+     * @param item The menu item that was selected.
+     * @return true if item has been handled and false otherwise
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         super.onOptionsItemSelected(item);

@@ -7,6 +7,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import java.util.List;
+
 @Dao
 public interface DictionaryDAO {
 
@@ -14,7 +16,7 @@ public interface DictionaryDAO {
     public long insertTerm(TermAndMeaningStorage term);
 
     @Query("SELECT * FROM TermAndMeaningStorage;")
-    public TermAndMeaningStorage getTerm();
+    public List<TermAndMeaningStorage> getAllTerms();
 
     @Update
     public void updateTerm(TermAndMeaningStorage term);

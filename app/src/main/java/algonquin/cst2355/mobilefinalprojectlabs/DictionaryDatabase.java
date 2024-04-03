@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-@Database(entities = {TermAndMeaningStorage.class},version=1)
+@Database(entities = {TermAndMeaningStorage.class},version=1, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class DictionaryDatabase extends RoomDatabase {
     private static volatile DictionaryDatabase INSTANCE;

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.room.Room;
 
@@ -31,31 +32,41 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import algonquin.cst2355.mobilefinalprojectlabs.data.DictionaryViewModel;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityWordDefinitionsPageBinding;
 
-//page2
-
 /**
- * When user searches for a term, they are redirected to this page which will show them the term,
- * phonetic, and definitions. They can also save the term.
+ * Page 2 in the application. When user searches for a term, they are redirected to this page which
+ * will show them the term, phonetic, and definitions. They can also save the term.
  */
 public class WordDefinitionsPage extends AppCompatActivity {
     ActivityWordDefinitionsPageBinding binding;
     String term=null;
     DictionaryDAO dDAO;
     TermAndMeaningStorage termAndMeaningStorage = null;
+    DictionaryViewModel dictionaryViewModel;
+    ArrayList<TermAndMeaningStorage> termList = new ArrayList<>();
 
     /**
      * Method that is called when the app first starts.
      * @param savedInstanceState If the activity is being re-initialized after
-     *     previously being shut down then this Bundle contains the data it most
-     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
-     *
+     * previously being shut down then this Bundle contains the data it most
+     * recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_word_definitions_page);
+
+        //if rotate
+        dictionaryViewModel = new ViewModelProvider(this).get(DictionaryViewModel.class); //get data from view model
+        termList = dictionaryViewModel.dictionaryRotate.getValue(); //array list that has all terms, comes from view model
+
+        //if termList array list doesnt exist yet, make one
+        if(termList==null){
+            dictionaryViewModel.dictionaryRotate.postValue(termList = new ArrayList<>());
+        }
 
         binding = ActivityWordDefinitionsPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -140,7 +151,6 @@ public class WordDefinitionsPage extends AppCompatActivity {
                                 List<TermAndMeaningStorage.Meanings> allMeaningsList = new ArrayList<>(); //list for ALL meanings
                                 termAndMeaningStorage = termAndMeaningStorageMap.getOrDefault(word, new TermAndMeaningStorage(word, phonetic, allMeaningsList));
 
-
                                 /*for each "meanings" array
                                 4. Iterate over meanings array. Get partOfSpeech, noun/adjective/verb, and definitions array.*/
                                 for (int i = 0; i < meaningsArray.length(); i++) {
@@ -191,9 +201,6 @@ public class WordDefinitionsPage extends AppCompatActivity {
         } //close else
         return termAndMeaningStorage;
     } //close getDefinitions method
-
-
-
 
     /**
      * Set adapter to RecyclerView and specifying LayoutManager in activity where RecyclerView is used

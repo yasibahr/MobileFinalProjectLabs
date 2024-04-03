@@ -8,8 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-import algonquin.cst2355.mobilefinalprojectlabs.R;
-
 public class APIAdapter extends RecyclerView.Adapter<APIAdapter.ViewHolder>{
 
     private final List<TermAndMeaningStorage> definitionsList; //holds list of definitions that adapter will display
