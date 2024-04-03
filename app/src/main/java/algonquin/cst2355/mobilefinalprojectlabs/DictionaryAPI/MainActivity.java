@@ -1,4 +1,4 @@
-package algonquin.cst2355.mobilefinalprojectlabs;
+package algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,9 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
-import algonquin.cst2355.mobilefinalprojectlabs.data.DictionaryViewModel;
+import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.data.DictionaryViewModel;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityMainBinding;
 
 /**

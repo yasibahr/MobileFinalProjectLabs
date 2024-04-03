@@ -1,22 +1,18 @@
-package algonquin.cst2355.mobilefinalprojectlabs;
+package algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI;
 
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.List;
-import algonquin.cst2355.mobilefinalprojectlabs.data.DictionaryViewModel;
+import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.data.DictionaryViewModel;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivitySavedTermsBinding;
 
 /**

@@ -1,4 +1,4 @@
-package algonquin.cst2355.mobilefinalprojectlabs;
+package algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.data;
 
 import android.content.Context;
 

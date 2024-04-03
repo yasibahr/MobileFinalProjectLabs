@@ -16,10 +16,10 @@
         android:theme="@style/Theme.MobileFinalProjectLabs"
         tools:targetApi="31">
         <activity
-            android:name=".SavedTerms"
+            android:name=".DictionaryAPI.SavedTerms"
             android:exported="false" />
         <activity
-            android:name=".WordDefinitionsPage"
+            android:name=".DictionaryAPI.WordDefinitionsPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".DictionaryAPI.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package algonquin.cst2355.mobilefinalprojectlabs;
+package algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

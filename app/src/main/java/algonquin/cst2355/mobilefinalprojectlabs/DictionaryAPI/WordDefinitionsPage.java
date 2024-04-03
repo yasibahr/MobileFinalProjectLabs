@@ -1,9 +1,7 @@
-package algonquin.cst2355.mobilefinalprojectlabs;
+package algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.database.sqlite.SQLiteConstraintException;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,11 +10,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.room.Room;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -34,7 +30,8 @@ import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import algonquin.cst2355.mobilefinalprojectlabs.data.DictionaryViewModel;
+import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.data.APIAdapter;
+import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.data.DictionaryViewModel;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityWordDefinitionsPageBinding;
 
 /**

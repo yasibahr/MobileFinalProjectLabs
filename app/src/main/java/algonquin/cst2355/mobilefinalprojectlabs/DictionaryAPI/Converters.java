@@ -1,4 +1,4 @@
-package algonquin.cst2355.mobilefinalprojectlabs;
+package algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.data;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -6,6 +6,8 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
+
+import algonquin.cst2355.mobilefinalprojectlabs.TermAndMeaningStorage;
 
 /**
  * Used to convert list of meanings to a json string to store in Room Database. And vice-versa.
