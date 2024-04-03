@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">MobileFinalProjectLabs</string>
+    <string name="app_name_main">MobileFinalProjectLabs</string>
+    <string name="app_name">DICTIONARY</string>
+    <string name="searchInput">Enter a word</string>
+    <string name="searchButton">SEARCH</string>
+    <string name="viewSavedButton">VIEW SAVED </string>
+    <string name="myToolbar">DICTIONARY</string>
+    <string name="searched_term">Searched Term</string>
+    <string name="definition">definition</string>
+    <string name="helpMenu">Help Menu</string>
+    <string name="helpMenuMessage">Enter a word to search and click search. You can then save the word from the search results.</string>
+    <string name="positiveButton">OK</string>
+    <string name="home">Home</string>
+    <string name="saved">View Saved</string>
+    <string name="about">About</string>
+    <string name="phonetic">Phonetic</string>
+    <string name="savedPage">Saved Terms</string>
 </resources>
