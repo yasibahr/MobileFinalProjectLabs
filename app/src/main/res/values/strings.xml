@@ -1,5 +1,22 @@
 <resources>
-    <string name="app_name_main">MobileFinalProjectLabs</string>
+    <!--HOME PAGE-->
+    <string name="app_name_main">Mobile</string>
+    <string name="mainHelpMenu">Help Menu</string>
+    <string name="mainHelpMenuMessage">Click on one of the icons to be redirected to one of our four applications!</string>
+    <string name="dictionarySearch">Dictionary API</string>
+    <string name="sunriseSunsetSearch">Sunrise and Sunset Lookup</string>
+    <string name="recipeSearch">Recipe Search</string>
+    <string name="songSearch">Deezer Song Search API</string>
+    <string name="className">CST2335 Lab 012</string>
+    <string name="subtitle">Created by:</string>
+    <string name="name1">Yasaman Bahramifarid</string>v
+    <string name="name2">Fereshteh Rohani</string>
+    <string name="name3">Mohammad Salaudeen</string>
+    <string name="name4">Jennifer Goodchild</string>
+    <string name="topic">Final Mobile Project</string>
+    <string name="welcome">Welcome!</string>
+
+    <!--DICTIONARY-->
     <string name="app_name">DICTIONARY</string>
     <string name="searchInput">Enter a word</string>
     <string name="searchButton">SEARCH</string>
@@ -15,4 +32,12 @@
     <string name="about">About</string>
     <string name="phonetic">Phonetic</string>
     <string name="savedPage">Saved Terms</string>
+
+    <!--SUNRISE AND SUNSET-->
+
+    <!--RECIPE-->
+
+    <!--SONG-->
+
+
 </resources>
