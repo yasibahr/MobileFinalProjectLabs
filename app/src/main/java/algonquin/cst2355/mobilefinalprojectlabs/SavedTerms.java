@@ -3,60 +3,83 @@ package algonquin.cst2355.mobilefinalprojectlabs;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Executor;
-import algonquin.cst2355.mobilefinalprojectlabs.R;
 import algonquin.cst2355.mobilefinalprojectlabs.data.DictionaryViewModel;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivitySavedTermsBinding;
-import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityWordDefinitionsPageBinding;
+import androidx.lifecycle.Observer;
 
 //page3
 public class SavedTerms extends AppCompatActivity {
     ActivitySavedTermsBinding binding;
-    DictionaryDAO dDAO;
     DictionaryViewModel dictionaryViewModel;
-    ArrayList<TermAndMeaningStorage> termList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         binding = ActivitySavedTermsBinding.inflate(getLayoutInflater());
-        //setContentView(binding.getRoot()); //show SavedTerms xml
-        //if rotate
-        dictionaryViewModel = new ViewModelProvider(this).get(DictionaryViewModel.class); //get data from view model
-        termList = dictionaryViewModel.dictionaryRotate.getValue(); //array list that has all terms, comes from view model
-
-        setSupportActionBar(binding.myToolbar); //toolbar
-//        binding.savedTermsRecyclerView.setLayoutManager(new LinearLayoutManager(this)); //initialize recyclerview and its layout manager
-        binding = ActivitySavedTermsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //initialize database and DAO
-        DictionaryDatabase db = DictionaryDatabase.getDatabase(getApplicationContext());
-        dDAO = db.dictionaryDAO();
+        setSupportActionBar(binding.myToolbar); //toolbar
 
-        Executor thread = Executors.newSingleThreadExecutor();
-        thread.execute(() -> {
-            List<TermAndMeaningStorage> fromDatabase = dDAO.getAllTerms();
+        /* 1. termList is a LiveData object from the ViewModel 'dictionaryViewModel'.
+         * 'this' is the current Activity/Fragment context (SavedTerms).
+         * The Observer pattern is used here, which allows the UI (the observer) to react to data changes.
+         */
+        dictionaryViewModel.termList.observe(this, new Observer<List<TermAndMeaningStorage>>() {
 
-            //use adapter to display terms
-            runOnUiThread(() -> {
-                TermsAdapter adapter = new TermsAdapter(fromDatabase);
+            /*2. The onChanged method is automatically called whenever the data within 'termList' CHANGES.
+             *This method receives the UPDATED list of TermAndMeaningStorage objects as its parameter.
+             */
+            @Override
+            public void onChanged(List<TermAndMeaningStorage> termAndMeanings) {
+                /* 3. Inside the onChanged method:
+                 * A new TermsAdapter is created with the updated list of terms and meanings.
+                 * The adapter is responsible for how the data is displayed in a RecyclerView.
+                 */
+                 TermsAdapter adapter = new TermsAdapter(termAndMeanings);
+
+                /* 4. The RecyclerView (savedTermsRecyclerView) in activity's layout is then set to use
+                 * this adapter. This updates the RecyclerView to display the latest list of terms and meanings.
+                 * Each time the data in 'termList' changes, this observer's onChanged method is called,
+                 * ensuring the RecyclerView always displays the current data.
+                 */
                 binding.savedTermsRecyclerView.setAdapter(adapter);
-            });
+            }
         });
+
+
+//        //if rotate
+//        dictionaryViewModel = new ViewModelProvider(this).get(DictionaryViewModel.class); //get data from view model
+//        termList = dictionaryViewModel.termList.getValue(); //array list that has all terms, comes from view model
+//
+//        //if termList array list doesnt exist yet, make one
+//        if(termList==null){
+//            dictionaryViewModel.termList.postValue(termList = new ArrayList<>());
+//        }
+
+//        Executor thread = Executors.newSingleThreadExecutor();
+//        thread.execute(() -> {
+//            if(termList !=null) { //some words are in the database
+//                //initialize database and DAO
+//                DictionaryDatabase db = DictionaryDatabase.getDatabase(getApplicationContext());
+//                dDAO = db.dictionaryDAO();
+//
+//                List<TermAndMeaningStorage> fromDatabase = dDAO.getAllTerms();
+//                termList.addAll(fromDatabase);
+//
+//                //use adapter to display terms
+//                runOnUiThread(() -> {
+//                    TermsAdapter adapter = new TermsAdapter(fromDatabase);
+//                    binding.savedTermsRecyclerView.setAdapter(adapter);
+//                });
+//            }
+//        });
     }
 
     /**

@@ -2,12 +2,18 @@ package algonquin.cst2355.mobilefinalprojectlabs;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import algonquin.cst2355.mobilefinalprojectlabs.data.DictionaryViewModel;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityMainBinding;
 
 /**
@@ -15,6 +21,7 @@ import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityMainBinding;
  */
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
+    DictionaryViewModel dictionaryViewModel;
 
     /**
      * Method that is called when the app first starts.
@@ -28,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot()); //show mainactivity xml
+
+        //if rotate
+        dictionaryViewModel = new ViewModelProvider(this).get(DictionaryViewModel.class); //get data from view model
 
         setSupportActionBar(binding.myToolbar); //toolbar
 

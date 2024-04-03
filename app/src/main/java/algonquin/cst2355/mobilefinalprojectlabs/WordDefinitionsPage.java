@@ -57,19 +57,17 @@ public class WordDefinitionsPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_word_definitions_page);
+        binding = ActivityWordDefinitionsPageBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         //if rotate
         dictionaryViewModel = new ViewModelProvider(this).get(DictionaryViewModel.class); //get data from view model
-        termList = dictionaryViewModel.dictionaryRotate.getValue(); //array list that has all terms, comes from view model
+        termList = dictionaryViewModel.termList.getValue(); //array list that has all terms, comes from view model
 
         //if termList array list doesnt exist yet, make one
         if(termList==null){
-            dictionaryViewModel.dictionaryRotate.postValue(termList = new ArrayList<>());
+            dictionaryViewModel.termList.postValue(termList = new ArrayList<>());
         }
-
-        binding = ActivityWordDefinitionsPageBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
         setSupportActionBar(binding.myToolbar); //toolbar
 

@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+/**
+ * For recyclerView in SavedTerms class. Holds list of saved terms.
+ */
 public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.ViewHolder> {
 
     private final List<TermAndMeaningStorage> termsList;

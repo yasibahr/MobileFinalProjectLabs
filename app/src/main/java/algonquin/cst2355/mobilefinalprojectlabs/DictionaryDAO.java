@@ -1,5 +1,6 @@
 package algonquin.cst2355.mobilefinalprojectlabs;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -16,7 +17,7 @@ public interface DictionaryDAO {
     public long insertTerm(TermAndMeaningStorage term);
 
     @Query("SELECT * FROM TermAndMeaningStorage;")
-    public List<TermAndMeaningStorage> getAllTerms();
+    public LiveData<List<TermAndMeaningStorage>> getAllTerms();
 
     @Update
     public void updateTerm(TermAndMeaningStorage term);
