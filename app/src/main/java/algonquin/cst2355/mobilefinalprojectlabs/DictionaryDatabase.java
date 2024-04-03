@@ -13,7 +13,7 @@ public abstract class DictionaryDatabase extends RoomDatabase {
     private static volatile DictionaryDatabase INSTANCE;
 
     //make one instance for the database. singleton pattern
-    static DictionaryDatabase getDatabase(final Context context) {
+    public static DictionaryDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (DictionaryDatabase.class) {
                 if (INSTANCE == null) {

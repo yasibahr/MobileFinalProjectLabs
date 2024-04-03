@@ -14,37 +14,43 @@ import java.util.List;
  * For recyclerView in SavedTerms class. Holds list of saved terms.
  */
 public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.ViewHolder> {
+    private List<String> wordsList;
 
-    private final List<TermAndMeaningStorage> termsList;
-
-    public TermsAdapter(List<TermAndMeaningStorage> termsList) {
-        this.termsList = termsList;
+    public TermsAdapter(List<String> wordsList) {
+        this.wordsList = wordsList;
     }
 
     @NonNull
     @Override
     public TermsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.each_definition,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.each_term, parent, false);
         return new TermsAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TermsAdapter.ViewHolder holder, int position) {
-        String singleTerm = String.valueOf(termsList.get(position));
-        holder.eachTermTextView.setText(singleTerm);
+        String word = wordsList.get(position); //get the word
+        holder.eachTermTextView.setText(word); //set the text of your TextView to the word
     }
 
     @Override
     public int getItemCount() {
-        return termsList.size();
+        return wordsList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView eachTermTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             eachTermTextView = itemView.findViewById(R.id.eachTermTextView);
         }
+    }
+
+    // Method to update the words list
+    public void updateWords(List<String> newWordsList) {
+        this.wordsList.clear();
+        this.wordsList.addAll(newWordsList);
+        notifyDataSetChanged();
     }
 }

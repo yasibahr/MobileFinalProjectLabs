@@ -3,84 +3,54 @@ package algonquin.cst2355.mobilefinalprojectlabs;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.List;
 import algonquin.cst2355.mobilefinalprojectlabs.data.DictionaryViewModel;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivitySavedTermsBinding;
-import androidx.lifecycle.Observer;
 
 //page3
 public class SavedTerms extends AppCompatActivity {
     ActivitySavedTermsBinding binding;
     DictionaryViewModel dictionaryViewModel;
+    TermAndMeaningStorage termAndMeaningStorage;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySavedTermsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //if rotate
+        dictionaryViewModel = new ViewModelProvider(this).get(DictionaryViewModel.class); //get data from view model
+
         setSupportActionBar(binding.myToolbar); //toolbar
 
-        /* 1. termList is a LiveData object from the ViewModel 'dictionaryViewModel'.
-         * 'this' is the current Activity/Fragment context (SavedTerms).
-         * The Observer pattern is used here, which allows the UI (the observer) to react to data changes.
-         */
-        dictionaryViewModel.termList.observe(this, new Observer<List<TermAndMeaningStorage>>() {
+        final TermsAdapter termsAdapter = new TermsAdapter(new ArrayList<>());
+        binding.savedTermsRecyclerView.setAdapter(termsAdapter);
+        binding.savedTermsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-            /*2. The onChanged method is automatically called whenever the data within 'termList' CHANGES.
-             *This method receives the UPDATED list of TermAndMeaningStorage objects as its parameter.
-             */
-            @Override
-            public void onChanged(List<TermAndMeaningStorage> termAndMeanings) {
-                /* 3. Inside the onChanged method:
-                 * A new TermsAdapter is created with the updated list of terms and meanings.
-                 * The adapter is responsible for how the data is displayed in a RecyclerView.
-                 */
-                 TermsAdapter adapter = new TermsAdapter(termAndMeanings);
-
-                /* 4. The RecyclerView (savedTermsRecyclerView) in activity's layout is then set to use
-                 * this adapter. This updates the RecyclerView to display the latest list of terms and meanings.
-                 * Each time the data in 'termList' changes, this observer's onChanged method is called,
-                 * ensuring the RecyclerView always displays the current data.
-                 */
-                binding.savedTermsRecyclerView.setAdapter(adapter);
+        //observe the LiveData from the ViewModel
+        dictionaryViewModel.getAllTerms().observe(this, termAndMeaningStorages -> {
+            List<String> words = new ArrayList<>();
+            for (TermAndMeaningStorage term : termAndMeaningStorages) {
+                words.add(term.getWord());
             }
+            //update the adapter with just the words
+            termsAdapter.updateWords(words);
         });
 
-
-//        //if rotate
-//        dictionaryViewModel = new ViewModelProvider(this).get(DictionaryViewModel.class); //get data from view model
-//        termList = dictionaryViewModel.termList.getValue(); //array list that has all terms, comes from view model
-//
-//        //if termList array list doesnt exist yet, make one
-//        if(termList==null){
-//            dictionaryViewModel.termList.postValue(termList = new ArrayList<>());
-//        }
-
-//        Executor thread = Executors.newSingleThreadExecutor();
-//        thread.execute(() -> {
-//            if(termList !=null) { //some words are in the database
-//                //initialize database and DAO
-//                DictionaryDatabase db = DictionaryDatabase.getDatabase(getApplicationContext());
-//                dDAO = db.dictionaryDAO();
-//
-//                List<TermAndMeaningStorage> fromDatabase = dDAO.getAllTerms();
-//                termList.addAll(fromDatabase);
-//
-//                //use adapter to display terms
-//                runOnUiThread(() -> {
-//                    TermsAdapter adapter = new TermsAdapter(fromDatabase);
-//                    binding.savedTermsRecyclerView.setAdapter(adapter);
-//                });
-//            }
-//        });
-    }
+    } //close onCreate
 
     /**
      * Shows menu toolbar and its options at the top of the page.

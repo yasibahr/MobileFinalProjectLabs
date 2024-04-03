@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.room.Room;
@@ -46,7 +47,7 @@ public class WordDefinitionsPage extends AppCompatActivity {
     DictionaryDAO dDAO;
     TermAndMeaningStorage termAndMeaningStorage = null;
     DictionaryViewModel dictionaryViewModel;
-    ArrayList<TermAndMeaningStorage> termList = new ArrayList<>();
+//    List<TermAndMeaningStorage> termList = new ArrayList<>();
 
     /**
      * Method that is called when the app first starts.
@@ -60,16 +61,32 @@ public class WordDefinitionsPage extends AppCompatActivity {
         binding = ActivityWordDefinitionsPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        setSupportActionBar(binding.myToolbar); //toolbar
+
+
         //if rotate
         dictionaryViewModel = new ViewModelProvider(this).get(DictionaryViewModel.class); //get data from view model
-        termList = dictionaryViewModel.termList.getValue(); //array list that has all terms, comes from view model
+        // Observe the LiveData from the ViewModel
+        dictionaryViewModel.getAllTerms().observe(this, new Observer<List<TermAndMeaningStorage>>() {
+            @Override
+            public void onChanged(List<TermAndMeaningStorage> terms) {
+                // Here, 'terms' contains the latest data. Use it as needed.
+                // For example, if you want to log the size:
+                Log.d("WordDefinitionsPage", "Number of terms: " + terms.size());
+                // If you have a RecyclerView that needs to display these terms, update it here.
+            }
+        });
 
-        //if termList array list doesnt exist yet, make one
-        if(termList==null){
-            dictionaryViewModel.termList.postValue(termList = new ArrayList<>());
-        }
 
-        setSupportActionBar(binding.myToolbar); //toolbar
+
+//        termList = dictionaryViewModel.getAllTerms().getValue(); //array list that has all terms, comes from view model
+//
+//        //if termList array list doesnt exist yet, make one
+//        if(termList==null){
+//            dictionaryViewModel.getAllTerms().getValue();
+//            termList = new ArrayList<>();
+//        }
+
 
         /*get searched term and definitions passed from mainactivity (page1)*/
         term = getIntent().getStringExtra("SEARCH_TERM");
@@ -89,19 +106,21 @@ public class WordDefinitionsPage extends AppCompatActivity {
         Executor thread = Executors.newSingleThreadExecutor();
         thread.execute(() -> {
             //getDefinitions in onCreate will return termAndMeaningStorage variable and we can use it here
-            if (termAndMeaningStorage != null) { //if there is a term with info
-                DictionaryDatabase db = DictionaryDatabase.getDatabase(getApplicationContext());
-                dDAO = db.dictionaryDAO();
+            DictionaryDatabase db = DictionaryDatabase.getDatabase(getApplicationContext());
+            dDAO = db.dictionaryDAO();
 
+            if (termAndMeaningStorage != null) {
                 long rowId = dDAO.insertTerm(termAndMeaningStorage);
-                if (rowId == -1L) { //check if the insertion failed due to a conflict. Room returns -1 if conflict with primary keys (term already in DB)
-                    dDAO.updateTerm(termAndMeaningStorage); //update term if row id is -1 (insert failed)
-                    Log.d("TAG", "Term already exists, updated in the database: " + termAndMeaningStorage.getWord());
-                    showToast("You've already saved this word");
-                } else {
-                    Log.d("TAG", "New term inserted into the database: " + termAndMeaningStorage.getWord());
-                    showToast("Word has been saved");
-                }
+                runOnUiThread(() -> {
+                    dDAO.getAllTerms().observe(this, fromDatabase -> {
+//                        termList.addAll(fromDatabase);
+                        if (rowId == -1L) { // Primary key conflict handling
+                            showToast("You've already saved this word");
+                        } else {
+                            showToast("Word has been saved");
+                        }
+                    });
+                });
             }
         });
     }

@@ -16,11 +16,8 @@ public interface DictionaryDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE) //dont throw exception if insert fails
     public long insertTerm(TermAndMeaningStorage term);
 
-    @Query("SELECT * FROM TermAndMeaningStorage;")
+    @Query("SELECT * FROM TermAndMeaningStorage")
     public LiveData<List<TermAndMeaningStorage>> getAllTerms();
-
-    @Update
-    public void updateTerm(TermAndMeaningStorage term);
 
     @Delete
     public int deleteTerm(TermAndMeaningStorage term);
