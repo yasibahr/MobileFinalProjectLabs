@@ -1,4 +1,4 @@
-package algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.data;
+package algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import algonquin.cst2355.mobilefinalprojectlabs.R;
-import algonquin.cst2355.mobilefinalprojectlabs.TermAndMeaningStorage;
+import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.TermAndMeaningStorage;
 
 /**
  * Will use the list of definitions from the application (for a word) and connects it to the RecyclerView

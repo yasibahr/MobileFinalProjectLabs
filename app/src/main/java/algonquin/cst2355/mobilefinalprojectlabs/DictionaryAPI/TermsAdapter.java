@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import algonquin.cst2355.mobilefinalprojectlabs.R;
+
 /**
  * For recyclerView in SavedTerms class. Holds list of saved terms.
  * @author Yasaman Bahramifarid

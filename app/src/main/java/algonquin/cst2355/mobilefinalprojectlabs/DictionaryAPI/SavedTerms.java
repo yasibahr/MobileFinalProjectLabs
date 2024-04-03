@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.data.DictionaryViewModel;
+import algonquin.cst2355.mobilefinalprojectlabs.R;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivitySavedTermsBinding;
 
 /**

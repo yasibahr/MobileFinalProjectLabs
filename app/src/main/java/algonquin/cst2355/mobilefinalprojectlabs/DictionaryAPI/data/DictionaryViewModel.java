@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import algonquin.cst2355.mobilefinalprojectlabs.DictionaryDAO;
-import algonquin.cst2355.mobilefinalprojectlabs.DictionaryDatabase;
-import algonquin.cst2355.mobilefinalprojectlabs.TermAndMeaningStorage;
+import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.DictionaryDAO;
+import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.DictionaryDatabase;
+import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.TermAndMeaningStorage;
 
 /**
  * ViewModel for application. Lets UI and database to interact asynchronously. Encapsulates LiveData in case

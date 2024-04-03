@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.data.DictionaryViewModel;
+import algonquin.cst2355.mobilefinalprojectlabs.R;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityMainBinding;
 
 /**
