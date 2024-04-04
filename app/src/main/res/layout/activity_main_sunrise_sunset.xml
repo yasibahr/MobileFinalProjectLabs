@@ -24,7 +24,6 @@
         android:layout_marginTop="32dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Enter latitude here"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/latitude" />
@@ -47,7 +46,6 @@
         android:layout_marginTop="32dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Enter longitude here"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/longitude" />

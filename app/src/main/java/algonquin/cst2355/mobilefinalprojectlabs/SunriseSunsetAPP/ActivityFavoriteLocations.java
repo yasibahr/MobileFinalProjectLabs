@@ -9,14 +9,21 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import algonquin.cst2355.mobilefinalprojectlabs.R;
+import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityFavoriteLocationsBinding;
+import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityMainSunriseSunsetBinding;
 
 public class ActivityFavoriteLocations extends AppCompatActivity {
+
+    ActivityFavoriteLocationsBinding binding_3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_favorite_locations);
+
+        binding_3 = ActivityFavoriteLocationsBinding.inflate(getLayoutInflater());
+        setContentView(binding_3.getRoot()); // showing locations Page
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
