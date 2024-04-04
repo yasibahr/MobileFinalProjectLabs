@@ -9,14 +9,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.room.Room;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import algonquin.cst2355.mobilefinalprojectlabs.R;
-import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityMainSunriseSunsetBinding;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityShowResultBinding;
 
 public class ShowResult extends AppCompatActivity {
 
     ActivityShowResultBinding binding_2;
+
+    FavoriteLocationDAO locationDAO_1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +38,16 @@ public class ShowResult extends AppCompatActivity {
         binding_2.latitudeVal.setText(latitudeVal);
         binding_2.longitudeVal.setText(longitudeVal);
 
+        // Connect to database
+        FavoriteLocationDatabase db = Room.databaseBuilder(getApplicationContext(), FavoriteLocationDatabase.class, "database-name").build();
+        locationDAO_1 = db.locationDAO();
+
         binding_2.addLocationButton.setOnClickListener(view -> {
-            Intent intent = new Intent(ShowResult.this, ActivityFavoriteLocations.class);
-            intent.putExtra("latitude", latitudeVal);
-            intent.putExtra("longitude", longitudeVal);
-            startActivity(intent);
+            FavoriteLocation fl = new FavoriteLocation(latitudeVal, longitudeVal);
+            // Add to database
+            Executor thread1 = Executors.newSingleThreadExecutor();
+            thread1.execute(() -> { locationDAO_1.insertFavoriteLocation(fl); });
+            Toast.makeText(ShowResult.this, "This Location Added to Favorite List!", Toast.LENGTH_SHORT).show();
         });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

@@ -41,6 +41,11 @@ public class MainSunriseSunset extends AppCompatActivity {
             }
         });
 
+        binding_1.ShowAllFavouritesButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainSunriseSunset.this, ActivityFavoriteLocations.class);
+            startActivity(intent);
+        });
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
