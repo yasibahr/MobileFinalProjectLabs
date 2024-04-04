@@ -14,14 +14,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileFinalProjectLabs"
         tools:targetApi="31">
+
+        <!-- Specify HomeActivity as the launcher activity -->
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <!-- Retain MainActivity -->
+        <activity
+            android:name=".Activities.MainActivity"
+            android:exported="true">
         </activity>
     </application>
 

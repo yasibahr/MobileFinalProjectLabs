@@ -1,4 +1,4 @@
-package algonquin.cst2355.mobilefinalprojectlabs;
+package algonquin.cst2355.mobilefinalprojectlabs.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,13 +13,22 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
+import algonquin.cst2355.mobilefinalprojectlabs.Activities.MainActivity;
+import algonquin.cst2355.mobilefinalprojectlabs.Artist;
+import algonquin.cst2355.mobilefinalprojectlabs.R;
+
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder> {
 
     private ArrayList<Artist> artists;
     private Context context;
+    private OnItemClickListener listener; // Add listener variable
 
-    public ArtistAdapter(ArrayList<Artist> artists) {
+    public interface OnItemClickListener {
+        void onItemClick(Artist artist);
+    }
+    public ArtistAdapter(ArrayList<Artist> artists, OnItemClickListener listener) {
         this.artists = artists;
+        this.listener = listener;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -35,6 +44,16 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
         }
     }
 
+    public void setFilteredList(ArrayList<Artist> filteredList){
+        this.artists = filteredList;
+        notifyDataSetChanged();
+    }
+
+    // Method to set the item click listener
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Inflate the item layout
@@ -45,13 +64,21 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // Bind data to the views
-        Artist artist = artists.get(position);
-        //holder.image.setImageResource(artist.getImageResource());
-
+        // Bind data to the views and set click listener
+        final Artist artist = artists.get(position);
         Glide.with(context).load(artist.getPicture()).into(holder.image);
         holder.name.setText(artist.getName());
         holder.type.setText(artist.getType());
+
+        // Set click listener
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onItemClick(artist); // Notify the listener
+                }
+            }
+        });
     }
 
     @Override

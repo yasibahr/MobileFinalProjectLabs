@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">MobileFinalProjectLabs</string>
+    <string name="app_name">Deezer API Search</string>
+    <string name="welcome_message">Welcome to Deezer API Search, Completed by Mohammad Salaudeen</string>
+
 </resources>

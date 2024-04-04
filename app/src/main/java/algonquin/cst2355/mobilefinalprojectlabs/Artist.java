@@ -1,8 +1,12 @@
 package algonquin.cst2355.mobilefinalprojectlabs;
+
 public class Artist {
     private int id;
     private String name;
     private String link;
+    private String picture;
+    private String type;
+    private String tracklist; // Field for the tracklist URL
 
     public int getId() {
         return id;
@@ -44,17 +48,21 @@ public class Artist {
         this.type = type;
     }
 
-    private String picture;
-    private String type;
+    public String getTracklist() {
+        return tracklist;
+    }
 
+    public void setTracklist(String tracklist) {
+        this.tracklist = tracklist;
+    }
 
-    public Artist(int id, String name, String link, String picture, String type){
+    public Artist(int id, String name, String link, String picture, String type, String tracklist) {
         this.id = id;
         this.name = name;
         this.link = link;
         this.picture = picture;
         this.type = type;
-
+        this.tracklist = tracklist; // Initialize tracklist URL
     }
 
     @Override
@@ -64,6 +72,8 @@ public class Artist {
                 ", name='" + name + '\'' +
                 ", link='" + link + '\'' +
                 ", picture='" + picture + '\'' +
+                ", type='" + type + '\'' +
+                ", tracklist='" + tracklist + '\'' +
                 '}';
     }
 }
