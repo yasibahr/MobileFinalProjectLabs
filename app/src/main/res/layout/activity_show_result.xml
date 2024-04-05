@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginTop="104dp"
-        android:text="The sun will rise at :"
+        android:text="@string/the_sun_will_rise_at"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="84dp"
         android:layout_marginTop="40dp"
-        android:text="The sun will set at :"
+        android:text="@string/the_sun_will_set_at"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sunriseText" />
 
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="276dp"
-        android:text="Add to Favorite Locations"
+        android:text="@string/add_to_favorite_locations"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sunsetText" />

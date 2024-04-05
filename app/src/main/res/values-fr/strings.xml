@@ -35,6 +35,14 @@
     <string name="savedPage">Les sauvegardés</string>
 
     <!--SUNRISE AND SUNSET-->
+    <string name="sun_app">Lever et Coucher du Soleil</string>
+    <string name="lookup">Chercher</string>
+    <string name="allLocations">Tous les emplacements favoris</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="the_sun_will_rise_at">Le soleil se lèvera à:</string>
+    <string name="the_sun_will_set_at">Le soleil se couchera à:</string>
+    <string name="add_to_favorite_locations">Ajouter aux Emplacements Favoris</string>
 
     <!--RECIPE-->
 
