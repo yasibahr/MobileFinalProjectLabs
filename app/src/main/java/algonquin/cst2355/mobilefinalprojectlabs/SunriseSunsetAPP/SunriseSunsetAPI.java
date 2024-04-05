@@ -1,34 +1,14 @@
 package algonquin.cst2355.mobilefinalprojectlabs.SunriseSunsetAPP;
 
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.IntentSender;
-import android.content.ServiceConnection;
-import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.UserHandle;
-import android.util.Log;
-import android.view.Display;
-import android.widget.Toast;
+/**
+ * Author: Fereshteh Rohani, 041096855
+ * Course: CST2335
+ * Lab Section: #012
+ * Date: 2024 4 4
+ */
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,13 +17,6 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class SunriseSunsetAPI {
 
@@ -67,8 +40,6 @@ public class SunriseSunsetAPI {
 
         // Instantiate the RequestQueue.
         queue = Volley.newRequestQueue(context);
-
-//        String url = "https://api.sunrisesunset.io/json?lat=12345&lng=123456&timezone=UTC&date=today";
 
         String url = "https://api.sunrisesunset.io/json?lat=" +
                 latitude +

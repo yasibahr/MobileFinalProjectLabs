@@ -1,8 +1,14 @@
 package algonquin.cst2355.mobilefinalprojectlabs.SunriseSunsetAPP;
 
+/**
+ * Author: Fereshteh Rohani, 041096855
+ * Course: CST2335
+ * Lab Section: #012
+ * Date: 2024 4 4
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -11,18 +17,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.MainActivity;
-import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.WordDefinitionsPage;
 import algonquin.cst2355.mobilefinalprojectlabs.R;
-import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityMainBinding;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.ActivityMainSunriseSunsetBinding;
 
 public class MainSunriseSunset extends AppCompatActivity {
@@ -32,6 +27,12 @@ public class MainSunriseSunset extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        SharedPreferencesHelper sharedPreferencesHelper = new SharedPreferencesHelper(this);
+//        String savedText = sharedPreferencesHelper.getText();
+//        binding_1.latitudeVal.setText(savedText);
+//        binding_1.longitudeVal.setText(savedText);
+
         EdgeToEdge.enable(this);
 
         binding_1 = ActivityMainSunriseSunsetBinding.inflate(getLayoutInflater());
@@ -49,8 +50,6 @@ public class MainSunriseSunset extends AppCompatActivity {
                 String sunriseTime = sunriseSunsetAPI.sunriseTime;
                 String sunsetTime = sunriseSunsetAPI.sunsetTime;
 
-                //getInfo(my_url);
-
                 Intent intent = new Intent(MainSunriseSunset.this, ShowResult.class);
                 intent.putExtra("sunriseTime", sunriseTime);
                 intent.putExtra("sunsetTime", sunsetTime);
@@ -58,7 +57,6 @@ public class MainSunriseSunset extends AppCompatActivity {
                 intent.putExtra("longitude", longitudeVal);
                 startActivity(intent);
             }
-
         });
 
         binding_1.ShowAllFavouritesButton.setOnClickListener(view -> {

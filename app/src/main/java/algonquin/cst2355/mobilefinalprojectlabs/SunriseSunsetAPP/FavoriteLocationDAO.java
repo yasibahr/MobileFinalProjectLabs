@@ -1,5 +1,12 @@
 package algonquin.cst2355.mobilefinalprojectlabs.SunriseSunsetAPP;
 
+/**
+ * Author: Fereshteh Rohani, 041096855
+ * Course: CST2335
+ * Lab Section: #012
+ * Date: 2024 4 4
+ */
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
