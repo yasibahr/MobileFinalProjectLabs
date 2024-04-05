@@ -3,6 +3,13 @@
     <style name="Base.Theme.MobileFinalProjectLabs" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:textColorPrimary">#FFFFFFFF</item>
+        <item name="android:textColorSecondary">#FF000000</item>
+        <!-- Toolbar background color -->
+        <item name="colorSurface">#BCA3E8</item>
+        <item name="android:statusBarColor">#4FA9F1</item>
+
+
     </style>
 
     <style name="Theme.MobileFinalProjectLabs" parent="Base.Theme.MobileFinalProjectLabs" />
