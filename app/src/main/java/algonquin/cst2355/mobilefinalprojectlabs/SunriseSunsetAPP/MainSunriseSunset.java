@@ -28,10 +28,10 @@ public class MainSunriseSunset extends AppCompatActivity {
 
     ActivityMainSunriseSunsetBinding binding_1;
 
-    private final String TAG = getClass().getSimpleName();
-    private static final String URL_TAG = "SUN";
-
-    private RequestQueue queue;
+//    private final String TAG = getClass().getSimpleName();
+//    private static final String URL_TAG = "SUN";
+//
+//    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +41,9 @@ public class MainSunriseSunset extends AppCompatActivity {
         binding_1 = ActivityMainSunriseSunsetBinding.inflate(getLayoutInflater());
         setContentView(binding_1.getRoot()); // showing first Page
 
-        // Instantiate the RequestQueue.
-        queue = Volley.newRequestQueue(this);
-        String my_url = "https://api.sunrisesunset.io/json?lat=12345&lng=123456&timezone=UTC&date=today";
-
+//        // Instantiate the RequestQueue.
+//        queue = Volley.newRequestQueue(this);
+//        String my_url = "https://api.sunrisesunset.io/json?lat=12345&lng=123456&timezone=UTC&date=today";
 
         binding_1.lookupButton.setOnClickListener(view -> {
             String latitudeVal = binding_1.latitudeVal.getText().toString(); // getting latitude from the user
@@ -52,11 +51,18 @@ public class MainSunriseSunset extends AppCompatActivity {
             if( latitudeVal.isEmpty() || longitudeVal.isEmpty()) {
                 Toast.makeText(MainSunriseSunset.this, "Invalid input!", Toast.LENGTH_SHORT).show();
             } else {
-                getInfo(my_url);
+                SunriseSunsetAPI sunriseSunsetAPI = new SunriseSunsetAPI();
+                sunriseSunsetAPI.sendRequest(MainSunriseSunset.this);
+
+                //getInfo(my_url);
 
                 Intent intent = new Intent(MainSunriseSunset.this, ShowResult.class);
                 intent.putExtra("latitude", latitudeVal);
                 intent.putExtra("longitude", longitudeVal);
+
+                intent.putExtra("sunriseTime", sunriseSunsetAPI.getSunriseTime());
+                intent.putExtra("sunsetTime", sunriseSunsetAPI.getSunsetTime());
+                
                 startActivity(intent);
             }
 
@@ -74,27 +80,26 @@ public class MainSunriseSunset extends AppCompatActivity {
         });
     }
 
-    private void getInfo(String url) {
-        // Request a string response from the provided URL
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                response -> {
-                    try {
-                        JSONObject responseJson = new JSONObject(response); // response is the JSON string you received from the server
-
-                        JSONObject results = responseJson.getJSONObject("results");
-                        String sunriseTime = results.getString("sunrise");
-                        String sunsetTime = results.getString("sunset");
-
-                        // استفاده از sunrise و sunset در اینجا
-
-                    } catch (JSONException e) {
-                        Toast.makeText(MainSunriseSunset.this, "Error in response!", Toast.LENGTH_SHORT).show();
-                    }
-                },
-                error -> Toast.makeText(MainSunriseSunset.this, "Try later!", Toast.LENGTH_SHORT).show()
-        );
-        stringRequest.setTag(URL_TAG);
-        queue.add(stringRequest);
-    }
+//    private void getInfo(String url) {
+//        // Request a string response from the provided URL
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+//                response -> {
+//                    try {
+//                        JSONObject responseJson = new JSONObject(response); // response is the JSON string you received from the server
+//
+//                        JSONObject results = responseJson.getJSONObject("results");
+//                        String sunriseTime = results.getString("sunrise");
+//                        String sunsetTime = results.getString("sunset");
+//
+//                        // استفاده از sunrise و sunset در اینجا
+//
+//                    } catch (JSONException e) {
+//                        Toast.makeText(MainSunriseSunset.this, "Error in response!", Toast.LENGTH_SHORT).show();
+//                    }
+//                },
+//                error -> Toast.makeText(MainSunriseSunset.this, "Try later!", Toast.LENGTH_SHORT).show()
+//        );
+//        stringRequest.setTag(URL_TAG);
+//        queue.add(stringRequest)
 
 }

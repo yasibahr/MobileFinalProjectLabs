@@ -32,18 +32,27 @@ public class ShowResult extends AppCompatActivity {
         setContentView(binding_2.getRoot()); // showing result Page
 
         Intent fromPrevious = getIntent();
-        String latitudeVal = fromPrevious.getStringExtra("latitude");
-        String longitudeVal = fromPrevious.getStringExtra("longitude");
 
-        binding_2.latitudeVal.setText(latitudeVal);
-        binding_2.longitudeVal.setText(longitudeVal);
+        binding_2.latitudeVal.setText(fromPrevious.getStringExtra("latitude"));
+        binding_2.longitudeVal.setText(fromPrevious.getStringExtra("longitude"));
+
+        binding_2.sunriseTime.setText(fromPrevious.getStringExtra("sunriseTime"));
+        binding_2.sunsetTime.setText(fromPrevious.getStringExtra("sunsetTime"));
+
+//        Toast.makeText(ShowResult.this, fromPrevious.getStringExtra("latitude"), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(ShowResult.this, fromPrevious.getStringExtra("longitude"), Toast.LENGTH_SHORT).show();
+//
+//        Toast.makeText(ShowResult.this, fromPrevious.getStringExtra("sunriseTime"), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(ShowResult.this, fromPrevious.getStringExtra("sunsetTime"), Toast.LENGTH_SHORT).show();
 
         // Connect to database
         FavoriteLocationDatabase db = Room.databaseBuilder(getApplicationContext(), FavoriteLocationDatabase.class, "database-name").build();
         locationDAO_1 = db.locationDAO();
 
         binding_2.addLocationButton.setOnClickListener(view -> {
-            FavoriteLocation fl = new FavoriteLocation(latitudeVal, longitudeVal);
+            FavoriteLocation fl = new FavoriteLocation(
+                    fromPrevious.getStringExtra("latitude"),
+                    fromPrevious.getStringExtra("longitude"));
             // Add to database
             Executor thread1 = Executors.newSingleThreadExecutor();
             thread1.execute(() -> { locationDAO_1.insertFavoriteLocation(fl); });
