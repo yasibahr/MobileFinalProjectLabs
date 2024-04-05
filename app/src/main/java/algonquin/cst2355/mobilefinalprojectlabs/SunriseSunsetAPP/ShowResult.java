@@ -39,12 +39,6 @@ public class ShowResult extends AppCompatActivity {
         binding_2.sunriseTime.setText(fromPrevious.getStringExtra("sunriseTime"));
         binding_2.sunsetTime.setText(fromPrevious.getStringExtra("sunsetTime"));
 
-//        Toast.makeText(ShowResult.this, fromPrevious.getStringExtra("latitude"), Toast.LENGTH_SHORT).show();
-//        Toast.makeText(ShowResult.this, fromPrevious.getStringExtra("longitude"), Toast.LENGTH_SHORT).show();
-//
-//        Toast.makeText(ShowResult.this, fromPrevious.getStringExtra("sunriseTime"), Toast.LENGTH_SHORT).show();
-//        Toast.makeText(ShowResult.this, fromPrevious.getStringExtra("sunsetTime"), Toast.LENGTH_SHORT).show();
-
         // Connect to database
         FavoriteLocationDatabase db = Room.databaseBuilder(getApplicationContext(), FavoriteLocationDatabase.class, "database-name").build();
         locationDAO_1 = db.locationDAO();
