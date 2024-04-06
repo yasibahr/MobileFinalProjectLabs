@@ -27,9 +27,20 @@
 
         <!-- Retain MainActivity -->
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".Activities.SearchActivity"
             android:exported="true">
         </activity>
+
+        <activity
+            android:name=".Activities.FavoritesActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".Activities.SongDetailsActivity"
+            android:exported="true">
+        </activity>
+
     </application>
 
 </manifest>

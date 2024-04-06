@@ -20,7 +20,7 @@ public class HomeActivity extends AppCompatActivity {
     // Method to handle button click event
     public void startSearch(View view) {
         // Create an Intent to start MainActivity
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
     }
 }

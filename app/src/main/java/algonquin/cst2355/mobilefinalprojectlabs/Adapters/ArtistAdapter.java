@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import algonquin.cst2355.mobilefinalprojectlabs.Activities.MainActivity;
 import algonquin.cst2355.mobilefinalprojectlabs.Artist;
 import algonquin.cst2355.mobilefinalprojectlabs.R;
 
