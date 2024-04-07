@@ -4,4 +4,6 @@
     <string name="fyi">Bienvenue! Entrez une recette que vous souhaitez rechercher ci-dessous.</string>
     <string name="hint">tacos, crêpes, pain de viande...</string>
     <string name="search">Rechercher</string>
+    <string name="loading">Chargement...</string>
+    <string name="searchRecipe">Rechercher une recette</string>
 </resources>

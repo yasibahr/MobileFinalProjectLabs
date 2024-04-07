@@ -3,4 +3,6 @@
     <string name="fyi">Welcome! Enter a recipe you would like to search for below.</string>
     <string name="hint">tacos, pancakes, meatloaf...</string>
     <string name="search">Search</string>
+    <string name="loading">Loading...</string>
+    <string name="searchRecipe">Search Recipe</string>
 </resources>

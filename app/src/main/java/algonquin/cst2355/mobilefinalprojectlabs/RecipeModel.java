@@ -8,6 +8,7 @@ public class RecipeModel {
    private String image;
 
 
+
     public RecipeModel(String title, String id, String image) {
         this.title = title;
         this.id = id;

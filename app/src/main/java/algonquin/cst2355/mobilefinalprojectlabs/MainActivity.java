@@ -1,22 +1,35 @@
 package algonquin.cst2355.mobilefinalprojectlabs;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,15 +37,19 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+
+/**
+ * @author Jennifer Goodchild
+ * @section CST2355 012
+ * @creationDate 06/04/2024
+ */
 public class MainActivity extends AppCompatActivity {
 
-  //  ArrayList<RecipeModel> recipeModels = new ArrayList<>();
-    ArrayList<RecipeModel> recipeModels;
-    String QUERY = "";
+    ArrayList<RecipeModel> recipeModels = new ArrayList<>();
 
     RecyclerView recyclerView;
 
-    Adapter adapter;
+    RecipeAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,62 +57,152 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        Button button = findViewById(R.id.search_Button);
-
-        recipeModels = new ArrayList<>();
         recyclerView = findViewById(R.id.RecipeRecyclerView);
-        recyclerView.setHasFixedSize(true);
+        adapter = new RecipeAdapter(this, recipeModels);
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new Adapter(this, recipeModels);
+        SharedPreferences prefs = getSharedPreferences("My Data", MODE_PRIVATE);
+        String recipeName = prefs.getString("recipeName", "");
+        EditText recipeET = findViewById(R.id.searchET);
+        recipeET.setText(recipeName);
 
+
+        Button button = findViewById(R.id.search_Button);
+
+        // fetches a list of recipes and displays them when the user clicks the search button
+        button.setOnClickListener(click -> {
+
+            // get search text
+            String searchText = recipeET.getText().toString();
+
+            // update shared preferences to save search state
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("recipeName", searchText);
+            editor.apply();
+
+            // clear the search text
+            recipeET.setText("");
+
+            // show loading toast
+            Toast.makeText(this, R.string.loading, Toast.LENGTH_SHORT).show();
+
+            // fetch the data
+            sendRequest(searchText);
+
+        });
+
+
+    }
+
+    private void sendRequest(String query) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "https://api.spoonacular.com/recipes/complexSearch?query=" + query + "&apiKey=12faad18cf964f1aa8b289f1d88610f4";
 
-        button.setOnClickListener(new View.OnClickListener() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
-            public void onClick(View v) {
+            public void onResponse(String response) {
+                try {
+                    // get the whole json object
+                    JSONObject jsonObject = new JSONObject(response);
+                    // get the 'results' array
+                    JSONArray jsonArray = jsonObject.getJSONArray("results");
+                    // iterate over results array
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject recipeObject = jsonArray.getJSONObject(i);
 
-            String url = "https://api.spoonacular.com/recipes/complexSearch?query=" + QUERY + "&apiKey=12faad18cf964f1aa8b289f1d88610f4";
-
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray jsonArray = response.getJSONArray("results");
-                        for (int i = 0; i < jsonArray.length(); i++){
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            String id = jsonObject.getString("id");
-                            String title = jsonObject.getString("title");
-                            String image = jsonObject.getString("image");
-
-
-                        }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        RecipeModel recipeModel = new RecipeModel();
+                        recipeModel.setId(recipeObject.getString("id"));
+                        recipeModel.setTitle(recipeObject.getString("title"));
+                        recipeModel.setImage(recipeObject.getString("image"));
+                        System.out.println(recipeModel.getTitle());
+                        recipeModels.add(recipeModel);
 
 
                     }
-                }, new Response.ErrorListener(){
-                @Override
-                    public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(MainActivity.this,error.getMessage(), Toast.LENGTH_SHORT).show();
-
+                    Log.d("hello", "made it here");
+                    adapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                });
 
-                requestQueue.add(jsonObjectRequest);
 
             }
-        });
+        }, error -> Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show());
+
+        requestQueue.add(stringRequest);
+    }
+
+    /**
+     * RecyclerViewAdapter inner class to display the recipes
+     */
+    class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHolder> {
+
+        private Context myContext;
+        private ArrayList<RecipeModel> recipes;
+
+
+        public RecipeAdapter(Context myContext, ArrayList<RecipeModel> recipes) {
+            this.myContext = myContext;
+            this.recipes = recipes;
+        }
+
+        @NonNull
+        @Override
+        public RecipeAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(myContext);
+            View view = inflater.inflate(R.layout.search_row_view, parent, false);
+
+            return new RecipeAdapter.MyViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
+            RecipeModel recipeModel = recipes.get(position);
+            holder.id.setText(recipeModel.getId().toString());
+            holder.title.setText(recipeModel.getTitle());
+            Picasso.get().load(recipeModel.getImage()).into(holder.imageView);
+            //holder.imageView.setImageResource(Integer.parseInt(recipeModel.getImage().toString()));
+
+
+            // add your click listeners here for your functions
+
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return recipes.size();
+        }
+
+        public class MyViewHolder extends RecyclerView.ViewHolder {
+
+            TextView id;
+            TextView title;
+            ImageView imageView;
+
+            public MyViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                id = itemView.findViewById(R.id.idTextView);
+                title = itemView.findViewById(R.id.titleTextView);
+                imageView = itemView.findViewById(R.id.imageView);
+
+
+            }
+        }
 
     }
 
+}
 
 
 
-
-
-
-    }
