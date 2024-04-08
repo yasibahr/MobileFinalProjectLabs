@@ -6,4 +6,9 @@
     <string name="search">Rechercher</string>
     <string name="loading">Chargement...</string>
     <string name="searchRecipe">Rechercher une recette</string>
+    <string name="home">Domicile</string>
+    <string name="about">Environ</string>
+    <string name="help_menu">Menu d\'aide</string>
+    <string name="help_message">Saisissez une recette à rechercher et cliquez sur le bouton Rechercher.</string>
+    <string name="ok">D\'accord!</string>
 </resources>

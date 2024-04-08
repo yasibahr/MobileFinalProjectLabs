@@ -5,28 +5,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Context;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-
+import androidx.appcompat.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
@@ -39,7 +43,8 @@ import java.util.ArrayList;
 
 
 /**
- * @author Jennifer Goodchild
+ * 1st view of the application where a user can input a recipe to search for.
+ *  @author Jennifer Goodchild
  * @section CST2355 012
  * @creationDate 06/04/2024
  */
@@ -67,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
         EditText recipeET = findViewById(R.id.searchET);
         recipeET.setText(recipeName);
 
+        Toolbar toolbar = findViewById(R.id.recipeToolBar);
+        setSupportActionBar(toolbar);
 
         Button button = findViewById(R.id.search_Button);
 
@@ -94,6 +101,34 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.my_menu, menu);
+        return true;
+    }
+@Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        if(id==R.id.about) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.help_menu))
+                    .setMessage(getString(R.string.help_message))
+                    .setPositiveButton(getString(R.string.ok),null)
+                    .show();
+
+            return true;
+                 }  else if(id==R.id.myMenu){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        return true;
+    }
+    return super.onOptionsItemSelected(item);
+}
+
+
 
     private void sendRequest(String query) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -199,6 +234,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+
+
+
 
     }
 
