@@ -48,13 +48,22 @@ import java.util.ArrayList;
  * @section CST2355 012
  * @creationDate 06/04/2024
  */
-public class MainActivity extends AppCompatActivity {
+public class RecipeActivity extends AppCompatActivity {
 
     ArrayList<RecipeModel> recipeModels = new ArrayList<>();
 
     RecyclerView recyclerView;
 
     RecipeAdapter adapter;
+
+    /**
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     * 1st method that is called when the apps starts.
+     */
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,25 +85,39 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Button button = findViewById(R.id.search_Button);
+/**
+ * onClickListener on the Search button that has volley built into it to retrieve the JSON data of the recipes searched for.
+ */
 
-        // fetches a list of recipes and displays them when the user clicks the search button
         button.setOnClickListener(click -> {
 
-            // get search text
+
+            /**
+             * gets the search text
+             */
             String searchText = recipeET.getText().toString();
 
-            // update shared preferences to save search state
+
+            /**
+             * updates shared preferences to save search state
+             */
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("recipeName", searchText);
             editor.apply();
 
-            // clear the search text
+            /**
+             * clears the search text
+             */
             recipeET.setText("");
 
-            // show loading toast
+            /**
+             * shows the toast letting you know the recipes are loading
+             */
             Toast.makeText(this, R.string.loading, Toast.LENGTH_SHORT).show();
 
-            // fetch the data
+            /**
+             * function that fetches the data to be displayed in recyclerview
+             */
             sendRequest(searchText);
 
         });
@@ -102,12 +125,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Displays the menu toolbar at the top of the page.
+     * @param menu The options menu in which you place your items.
+     *
+     * @return is true to show that it's been handled or else is false.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.my_menu, menu);
         return true;
     }
+
+
+    /**
+     * Allows user to use the home button which clears recyclerview as well as displaying the alertdialog to show how the app is to be used.
+     * @param item The menu item that was selected.
+     *
+     * @return true if the item is handled. Otherwise false.
+     */
+
+
 @Override
     public boolean onOptionsItemSelected(MenuItem item){
         super.onOptionsItemSelected(item);
@@ -121,14 +160,17 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
                  }  else if(id==R.id.myMenu){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, RecipeActivity.class);
         startActivity(intent);
         return true;
     }
     return super.onOptionsItemSelected(item);
 }
 
-
+    /**
+     *
+     * @param query The recipe that was typed into the edittext that is then used to pull the json data.
+     */
 
     private void sendRequest(String query) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -163,12 +205,13 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
-        }, error -> Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show());
+        }, error -> Toast.makeText(RecipeActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show());
 
         requestQueue.add(stringRequest);
     }
 
     /**
+     *
      * RecyclerViewAdapter inner class to display the recipes
      */
     class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHolder> {
