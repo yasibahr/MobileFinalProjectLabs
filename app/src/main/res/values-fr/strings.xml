@@ -47,6 +47,7 @@
     <!--RECIPE-->
 
     <!--SONG-->
-
+    <string name="app_name_song">Deezer API Search</string>
+    <string name="welcome_message">Welcome to Deezer API Search, Completed by Mohammad Salaudeen</string>
 
 </resources>

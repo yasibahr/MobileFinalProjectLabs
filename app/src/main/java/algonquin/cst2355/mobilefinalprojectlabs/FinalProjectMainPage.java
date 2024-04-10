@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import algonquin.cst2355.mobilefinalprojectlabs.Activities.HomeActivity;
 import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.MainActivity;
 import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.SavedTerms;
 import algonquin.cst2355.mobilefinalprojectlabs.SunriseSunsetAPP.MainSunriseSunset;
@@ -76,11 +77,11 @@ public class FinalProjectMainPage extends AppCompatActivity {
             startActivity(intent);
             return true; //menu item handled
         } else if(id==R.id.recipeSearch){ //************************************************JENNIFER
-            Intent intent = new Intent(this, FinalProjectMainPage.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             return true; //menu item handled
         } else if(id==R.id.songSearch){ //**************************************************MO
-            Intent intent = new Intent(this, FinalProjectMainPage.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
             return true; //menu item handled
         }
