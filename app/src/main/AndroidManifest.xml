@@ -14,32 +14,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileFinalProjectLabs"
         tools:targetApi="31">
-
-        <!-- FinalProjectMainPage Activity -->
+        <activity
+            android:name=".SunriseSunsetAPP.ActivityFavoriteLocations"
+            android:exported="false" />
+        <activity
+            android:name=".SunriseSunsetAPP.ShowResult"
+            android:exported="false" />
+        <activity
+            android:name=".SunriseSunsetAPP.MainSunriseSunset"
+            android:exported="false" /> <!-- FinalProjectMainPage Activity -->
         <activity
             android:name=".FinalProjectMainPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- SavedTerms Activity -->
+        </activity> <!-- SavedTerms Activity -->
         <activity
             android:name=".DictionaryAPI.SavedTerms"
-            android:exported="true" />
-
-        <!-- WordDefinitionsPage Activity -->
+            android:exported="true" /> <!-- WordDefinitionsPage Activity -->
         <activity
             android:name=".DictionaryAPI.WordDefinitionsPage"
-            android:exported="true" />
-
-        <!-- MainActivity Activity -->
+            android:exported="true" /> <!-- MainActivity Activity -->
         <activity
             android:name=".DictionaryAPI.MainActivity"
             android:exported="true" />
-
     </application>
 
 </manifest>

@@ -34,6 +34,14 @@
     <string name="savedPage">Saved Terms</string>
 
     <!--SUNRISE AND SUNSET-->
+    <string name="sun_app">Sunrise and Sunset</string>
+    <string name="lookup">Lookup</string>
+    <string name="allLocations">All Favourite Locations</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="the_sun_will_rise_at">The sun will rise at:</string>
+    <string name="the_sun_will_set_at">The sun will set at:</string>
+    <string name="add_to_favorite_locations">Add to Favorite Locations</string>
 
     <!--RECIPE-->
 

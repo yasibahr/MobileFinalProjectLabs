@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.MainActivity;
 import algonquin.cst2355.mobilefinalprojectlabs.DictionaryAPI.SavedTerms;
+import algonquin.cst2355.mobilefinalprojectlabs.SunriseSunsetAPP.MainSunriseSunset;
 import algonquin.cst2355.mobilefinalprojectlabs.databinding.FinalProjectMainPageBinding;
 
 /**
@@ -71,7 +72,7 @@ public class FinalProjectMainPage extends AppCompatActivity {
             startActivity(intent);
             return true; //menu item handled
         } else if(id==R.id.sunriseSunsetSearch){ //*****************************************FERESHTEH
-            Intent intent = new Intent(this, FinalProjectMainPage.class);
+            Intent intent = new Intent(this, MainSunriseSunset.class);
             startActivity(intent);
             return true; //menu item handled
         } else if(id==R.id.recipeSearch){ //************************************************JENNIFER
