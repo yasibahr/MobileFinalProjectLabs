@@ -77,7 +77,7 @@ public class FinalProjectMainPage extends AppCompatActivity {
             startActivity(intent);
             return true; //menu item handled
         } else if(id==R.id.recipeSearch){ //************************************************JENNIFER
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, RecipeActivity.class);
             startActivity(intent);
             return true; //menu item handled
         } else if(id==R.id.songSearch){ //**************************************************MO

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/myMenu"
+        android:icon="@drawable/home_icon"
+        android:title="@string/home"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/aboutRecipe"
+        android:title="@string/aboutRecipe"
+        android:iconTint="@color/babyBlue"
+        app:showAsAction="never"
+        />
+
+</menu>

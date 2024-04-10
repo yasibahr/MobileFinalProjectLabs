@@ -3,7 +3,7 @@
     <style name="Base.Theme.MobileFinalProjectLabs" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
 <!--        <item name="android:colorBackground">@color/white</item>-->
-        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/lightYellow</item>
         <item name="android:textColorSecondary">@color/black</item>
         <!-- Toolbar background color -->
         <item name="colorSurface">@color/cherry</item>
@@ -12,3 +12,23 @@
 
     <style name="Theme.MobileFinalProjectLabs" parent="Base.Theme.MobileFinalProjectLabs" />
 </resources>
+
+
+
+
+<!--<resources xmlns:tools="http://schemas.android.com/tools">-->
+<!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
+<!--<style name="Base.Theme.MobileFinalProjectLabs" parent="Theme.Material3.DayNight.NoActionBar">-->
+<!--    &lt;!&ndash; Customize your light theme here. &ndash;&gt;-->
+<!--    &lt;!&ndash; <item name="colorPrimary">@color/my_light_primary</item> &ndash;&gt;-->
+<!--    <item name="android:textColorPrimary">#FFFFFFFF</item>-->
+<!--    <item name="android:textColorSecondary">#FF000000</item>-->
+<!--    &lt;!&ndash; Toolbar background color &ndash;&gt;-->
+<!--    <item name="colorSurface">#BCA3E8</item>-->
+<!--    <item name="android:statusBarColor">#4FA9F1</item>-->
+
+
+<!--</style>-->
+
+<!--<style name="Theme.MobileFinalProjectLabs" parent="Base.Theme.MobileFinalProjectLabs" />-->
+<!--</resources>-->

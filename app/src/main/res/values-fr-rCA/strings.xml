@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_recipe">Recherche de recettes</string>
+    <string name="fyi">Bienvenue! Entrez une recette que vous souhaitez rechercher ci-dessous.</string>
+    <string name="hint">tacos, crêpes, pain de viande...</string>
+    <string name="search">Rechercher</string>
+    <string name="loading">Chargement...</string>
+    <string name="searchRecipe">Rechercher une recette</string>
+    <string name="homeRecipe">Domicile</string>
+    <string name="aboutRecipe">Environ</string>
+    <string name="help_menu">Menu d\'aide</string>
+    <string name="help_message">Saisissez une recette à rechercher et cliquez sur le bouton Rechercher.</string>
+    <string name="ok">D\'accord!</string>
+</resources>

@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import algonquin.cst2355.mobilefinalprojectlabs.Database.FavoritesDAO;
 import algonquin.cst2355.mobilefinalprojectlabs.Database.FavoritesEntry;
 
-@Database(entities = {FavoritesEntry.class}, version = 1)
+@Database(entities = {FavoritesEntry.class}, version = 1, exportSchema = false)
 public abstract class FavoritesDatabase extends RoomDatabase {
 
     // Define database name
